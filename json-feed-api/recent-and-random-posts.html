@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blogger JSON Feed API Ajax by Hung1001</title>
+</head>
+
+<body>
+    <div class='featured-box-wrapper row'>
+        <!-- Mã HTML Render ra từ widget -->
+        <div class='featured-box section' id='featured-box'>
+            <div class='widget HTML' data-version='1' id='HTML777'>
+                <h2 class='title'>Recent Post</h2>
+                <div class='widget-content'>
+                    <span data-type="recent" data-no="8"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='featured-box-wrapper row'>
+        <div class='featured-box section' id='featured-box'>
+            <div class='widget HTML' data-version='1' id='HTML778'>
+                <h2 class='title'>Random Post 1</h2>
+                <div class='widget-content'>
+                    <span data-type="random" data-no="12"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='featured-box-wrapper row'>
+        <div class='featured-box section' id='featured-box'>
+            <div class='widget HTML' data-version='1' id='HTML779'>
+                <h2 class='title'>Random Post 2</h2>
+                <div class='widget-content'>
+                    <span data-type="random" data-no="8"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sử dụng ajax yêu cầu có thư viện jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin-ext,vietnamese' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+    var month_format = [, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    var text_cmt = "Bình luận";
+
+    $(".featured-box .HTML .widget-content").each(function() { // lặp qua từng widget
+        var a1 = $(this).find("span").attr("data-type"), // lấy kiểu hiển thị 
+            a2 = $(this).find("span").attr("data-no"), // lấy số bài cần hiển thị để gán cho max-results
+            a3 = $(this).parent().attr("id"), // lấy id của widget mục đích để code có thể chạy khi tạo nhiều widget với label name khác nhau
+            totalPost; // khai báo biến để lấy tổng số bài đăng của blog phục vụ random post
+
+        // xử lý cho recent post
+        if (a1 == "recent") {
+            $.ajax({
+                url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
+                type: "get",
+                data: {
+                    alt: 'json',
+                    'max-results': a2
+                },
+                dataType: "jsonp",
+                success: function(e) {
+                    getData(e)
+                }
+            })
+        };
+
+        // xử lý cho random post
+        if (a1 == "random") {
+            // call ajax lấy tổng số bài đăng
+            $.ajax({
+                url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
+                type: "get",
+                data: {
+                    alt: 'json',
+                    'max-results': 0 // tổng số bài đăng của blog không nằm trong node entry nên không cần tài thêm entry feed
+                },
+                dataType: "jsonp",
+                success: function(e) {
+                    totalPost = e.feed.openSearch$totalResults.$t; // lấy tổng số bài đăng của blog
+
+                    // đoạn này sẽ tạo 1 mảng gồm các giá trị từ 1 -> totalPost hay chính là các entry
+                    // sau đó sử dụng hàm ramdom để lấy 1 giá trị bất kì trong mảng cho mỗi lần random sao cho các giá trị này không được trùng nhau
+                    var nums = [],
+                        gen_nums = [];
+                    for (var x = 0; x < totalPost; x++) {
+                        nums.push(x + 1)
+                    };
+
+                    function in_array(array, el) {
+                        for (var i = 0; i < array.length; i++)
+                            if (array[i] == el) return true;
+                        return false;
+                    }
+
+                    function get_rand(array) {
+                        var rand = array[Math.floor(Math.random() * array.length)];
+                        if (!in_array(gen_nums, rand)) {
+                            gen_nums.push(rand);
+                            return rand;
+                        }
+                        return get_rand(array);
+                    }
+                    // end 
+
+                    for (var v = 0; v < a2; v++) { // lặp từ 0 tới giá trị data-no
+                        for (var w = 1; w <= 1; w++) { // lấy 1 giá trị trong list từ 1 -> totalPost đế set cho start-index
+                            // console.log(get_rand(nums)) // đọc log kiểm tra xem start index có bị trùng không
+                            $.ajax({
+                                url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
+                                type: "get",
+                                data: {
+                                    'start-index': get_rand(nums),
+                                    alt: 'json',
+                                    'max-results': 1
+                                },
+                                dataType: "jsonp",
+                                success: function(e1) {
+                                    getData(e1)
+                                }
+                            })
+                        }
+                    }
+                }
+            })
+        }
+        // viết chung 1 function để xử lí dữ liệu cho cả recent post và random post khi get ajax thành công
+        function getData(e) {
+            var r = "";
+            for (var n = 0; n < e.feed.entry.length; n++) { // lặp qua từng entry để lấy dữ liệu
+
+                // lấy link bài viết
+                for (var s = 0; s < e.feed.entry[n].link.length; s++) {
+                    if (e.feed.entry[n].link[s].rel === "alternate") {
+                        t = e.feed.entry[n].link[s].href;
+                        break
+                    }
+                }
+
+                // lấy số nhận xét và link nhận xét
+                for (var d = 0; d < e.feed.entry[n].link.length; d++) {
+                    if ("replies" === e.feed.entry[n].link[d].rel && "text/html" === e.feed.entry[n].link[d].type) {
+                        i = e.feed.entry[n].link[d].title;
+                        q = e.feed.entry[n].link[d].href;
+                        break
+                    }
+                }
+                i = parseInt(i, 10) // chỉ lấy số, bỏ text
+
+                // tạo rẽ nhánh để lấy đoạn trích ngắn áp dụng cho cả /default và /summary
+                if ("content" in e.feed.entry[n])
+                    l = e.feed.entry[n].content.$t;
+                else if ("summary" in e.feed.entry[n])
+                    l = e.feed.entry[n].summary.$t;
+                else l = "";
+
+                // loại bỏ kí tự đặc biệt và cắt chuỗi
+                if (l.length != 0) {
+                    l = l.replace(/<\S[^>]*>/g, "");
+                    if (l.length > 120) {
+                        l2 = l.substring(0, 100);
+                        l3 = l2.lastIndexOf(" ");
+                        l = l2.substring(0, l3) + ' ...';
+                    }
+                }
+
+                var f = e.feed.entry[n].title.$t, // lấy tiêu đề bài đăng
+                    c = e.feed.entry[n].author[0].name.$t, // lấy tên tác giả
+                    h = e.feed.entry[n].published.$t, // lấy thời gian đăng bài
+                    o = h.substring(0, 4), // cắt chuỗi lấy năm
+                    p = h.substring(5, 7), // cắt chuỗi láy tháng
+                    u = h.substring(8, 10), // cắt chuỗi lấy ngày
+                    m = month_format[parseInt(p, 10)] + " " + u + ", " + o; // định dạng lại thời gian
+                // xử lý thumbnail và resize
+                if ("media$thumbnail" in e.feed.entry[n]) { // nếu bài viết có thumbnail
+                    d = e.feed.entry[n].media$thumbnail.url.replace("s72-c", "s1600");
+                } else {
+                    // nếu không có thì dùng ảnh thay thế
+                    d = "https://3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s1600-r/nth.png"
+                }
+                // tạo div và truyền dữ liệu
+                r += '<div class="featured-inner"><div class="featured-thumb"><a class="featured-img" href="' + t + '" style="background:url(' + d + ') no-repeat center center;background-size: cover"></a></div><div class="featured-header"><h3 class="featured-title"><a href="' + t + '">' + f + '</a></h3><div class="featured-meta"><span class="featured-auth">' + c + '</span>&nbsp;<span class="featured-time">' + m + '</span>&nbsp;<span class="featured-cmt"><a href="' + q + '">' + i + "&nbsp;" + text_cmt + '</span></a></div><div class="featured-summary">' + l + '</div></div></div>'
+
+
+            }
+
+            $(".featured-box .HTML .widget-content").each(function() {
+                if ($(this).parent().attr("id") == a3) {
+                    $(this).append(r)
+                } // kiểm tra nếu đúng id thì append mã html vào
+            })
+        }
+    });
+    </script>
+    <style type="text/css">
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        line-height: 1.4;
+        color: #000;
+    }
+
+    .featured-box-wrapper,
+    .featured-inner:nth-of-type(4n+5) {
+        clear: both;
+    }
+
+    .featured-inner {
+        float: left;
+        margin: 0 15px 0 0;
+        width: calc(95% / 4);
+    }
+
+    .featured-thumb {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .featured-img {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .featured-title {
+        margin: 15px 0;
+        height: 44px;
+        overflow: hidden;
+    }
+
+    .featured-title a {
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .featured-thumb a:hover {
+        -webkit-transform: scale(1.1) rotate(-1.5deg);
+        -moz-transform: scale(1.1) rotate(-1.5deg);
+        -ms-transform: scale(1.1) rotate(-1.5deg);
+        -o-transform: scale(1.1) rotate(-1.5deg);
+        transform: scale(1.1) rotate(-1.5deg);
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+
+    .featured-meta {
+        margin: 0 0 10px;
+        font-size: 14px;
+    }
+
+    .featured-summary {
+        margin-bottom: 20px;
+    }
+
+    .featured-auth::before {
+        font-family: fontawesome;
+        content: '\f2c0';
+        margin: 0 5px 0 0
+    }
+
+    .featured-time::before {
+        font-family: fontawesome;
+        content: '\f017';
+        margin: 0 5px 0 3px
+    }
+
+    .featured-cmt a {
+        color: #000;
+        text-decoration: none
+    }
+
+    .featured-cmt::before {
+        font-family: fontawesome;
+        content: '\f0e6';
+        margin: 0 5px 0 3px
+    }
+    </style>
+</body>
+
+</html>
