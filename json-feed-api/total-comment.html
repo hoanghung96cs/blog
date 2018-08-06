@@ -1,22 +1,24 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Blogger Total Comments</title>
 </head>
 
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <div id="rc"></div>
+    <div id="rc-cmt"></div>
     <script type="text/javascript">
-    var listIndex = new Array,
+    // Blogger total comments by Hung1001
+    var listIndexCmt = new Array,
         character = 150, // số lượng kí tự nhận xét muốn hiển thị
-        avatarSize = 50, // kích thước avatar
-        time = "at";
+        avatar_Size = 50, // kích thước avatar
+        time_cmt = "at";
 
     $.ajax({
-        url: 'https://www.starcuongit.com/feeds/comments/summary',
+        url: 'https://hunghoangvan1001nd.blogspot.com/feeds/comments/summary',
         type: 'GET',
         dataType: 'jsonp',
         data: {
@@ -24,18 +26,20 @@
             'max-results': 0,
         },
     }).done(function(e) {
+
         // lấy tổng số bình luận chia cho 500 để tính toán các giá trị start-index
         t = parseInt(e.feed.openSearch$totalResults.$t, 10)
+
         if (t % 500 == 0) {
             num = (t / 500) - 1
         } else {
             num = Math.floor(t / 500);
         }
         for (var k = 0; k <= num; k++) {
-            listIndex.push((500 * k) + 1)
+            listIndexCmt.push((500 * k) + 1)
         }
 
-        // Sử dụng jQuery Ajax Queue để call ajax tải feed theo thứ tự trong listIndex, nếu không ajax sẽ call không theo thứ tự dẫn đến bình luận sẽ không sắp xếp từ cũ nhất tới mới nhất
+        // Sử dụng jQuery Ajax Queue để call ajax tải feed theo thứ tự trong listIndexCmt, nếu không ajax sẽ call không theo thứ tự dẫn đến bình luận sẽ không sắp xếp từ cũ nhất tới mới nhất
 
         /*! jQuery Ajax Queue 
          * https://github.com/gnarf37/jquery-ajaxQueue
@@ -44,7 +48,9 @@
         (function(e) {
             var r = e({});
             e.ajaxQueue = function(n) {
-                function t(r) { u = e.ajax(n).done(a.resolve).fail(a.reject).then(r, r) }
+                function t(r) {
+                    u = e.ajax(n).done(a.resolve).fail(a.reject).then(r, r)
+                }
                 var u, a = e.Deferred(),
                     i = a.promise();
                 return r.queue(t), i.abort = function(o) {
@@ -58,18 +64,18 @@
 
         // Bình luận cũ nhất sẽ có start-index lớn nhất nên sẽ lặp từ cuối mảng về đầu mảng
 
-        for (var l = listIndex.length - 1; l >= 0; l--) {
+        for (var l = listIndexCmt.length - 1; l >= 0; l--) {
             $.ajaxQueue({
-                url: 'https://www.starcuongit.com/feeds/comments/summary',
+                url: 'https://hunghoangvan1001nd.blogspot.com/feeds/comments/summary',
                 type: 'GET',
                 dataType: 'jsonp',
                 data: {
                     alt: 'json-in-script',
                     'max-results': 500,
-                    'start-index': listIndex[l]
+                    'start-index': listIndexCmt[l]
                 },
             }).done(function(json) {
-                var r = ""
+                var r = "";
                 for (var i = 0; i < json.feed.entry.length; i++) {
                     // lấy ngày đăng bình luận
                     a = json.feed.entry[i].published.$t;
@@ -108,15 +114,14 @@
                         if (json.feed.entry[i].author[0].gd$image.src == "https://img1.blogblog.com/img/blank.gif" || json.feed.entry[i].author[0].gd$image.src == "https://img1.blogblog.com/img/b16-rounded.gif") {
                             f = "https://i.imgur.com/KA5Fr6Q.png"
                         } else {
-                            f = json.feed.entry[i].author[0].gd$image.src.replace("s512-c", "s" + avatarSize + "-c");
+                            f = json.feed.entry[i].author[0].gd$image.src.replace("s512-c", "s" + avatar_Size + "-c").replace("s113", "s" + avatar_Size + "-c").replace("s220", "s" + avatar_Size + "-c");
                         }
-
                     } else {
                         f = "https://i.imgur.com/KA5Fr6Q.png"
                     }
-                    r += '<li class="rc-item"><div class="rc-avatar"><a title="View profile" href="' + e + '"><img src="' + f + '"/></a></div><div class="rc-main"><div class="rc-header"><span class="rc-profile"><a title="' + d + '" href="' + e + '">' + d + '</a></span> ' + time + '&nbsp;<a title="View comment" href="' + c + '"><span class="rc-time">' + g + '</span></a></div><div class="rc-content">' + b + '</div></div></li>';
+                    r += '<li class="rc-item"><div class="rc-avatar"><a title="View profile" href="' + e + '"><img src="' + f + '"/></a></div><div class="rc-main"><div class="rc-header"><span class="rc-profile"><a title="' + d + '" href="' + e + '">' + d + '</a></span> ' + time_cmt + '&nbsp;<a title="View comment" href="' + c + '"><span class="rc-time">' + g + '</span></a></div><div class="rc-content">' + b + '</div></div></li>';
                 };
-                $('#rc').prepend(r)
+                $('#rc-cmt').prepend(r)
                 r = "";
             })
         };
@@ -130,41 +135,41 @@
         font-size: 15px
     }
 
-    #rc {
+    #rc-cmt {
         margin: 1em 0;
         padding: 0 1em;
     }
 
-    #rc li {
+    #rc-cmt li {
         list-style: none;
         margin: 0 0 1.5em;
         display: block;
         width: 100%;
     }
 
-    #rc .rc-avatar {
+    #rc-cmt .rc-avatar {
         float: left;
         margin-right: .5em;
     }
 
-    #rc .rc-avatar a img {
+    #rc-cmt .rc-avatar a img {
         width: 50px;
         height: 50px;
         border-radius: 100%
     }
 
-    #rc .rc-main .rc-header {
+    #rc-cmt .rc-main .rc-header {
         margin-bottom: 10px;
     }
 
-    #rc .rc-main .rc-header a {
+    #rc-cmt .rc-main .rc-header a {
         text-decoration: none;
         cursor: pointer;
         color: #111;
         font-weight: bold
     }
 
-    #rc .rc-main .rc-content {
+    #rc-cmt .rc-main .rc-content {
         display: inline-block
     }
     </style>
