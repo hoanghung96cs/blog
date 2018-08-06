@@ -106,7 +106,7 @@
 
                     // lấy avatar người bình luận
                     if (json.feed.entry[i].author[0].gd$image.src) {
-                        if (json.feed.entry[i].author[0].gd$image.src == "https://img1.blogblog.com/img/blank.gif") {
+                        if (json.feed.entry[i].author[0].gd$image.src == "https://img1.blogblog.com/img/blank.gif" || json.feed.entry[i].author[0].gd$image.src == "https://img1.blogblog.com/img/b16-rounded.gif") {
                             f = "https://i.imgur.com/KA5Fr6Q.png"
                         } else {
                             f = json.feed.entry[i].author[0].gd$image.src.replace("s512-c", "s" + avatarSize + "-c");
