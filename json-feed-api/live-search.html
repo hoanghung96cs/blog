@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    .search-wrap-live-hung1001 {
+        position: relative;
+        width: 400px
+    }
+
+    .search-form-live-hung1001 {
+        position: relative
+    }
+
+    .searchform-live-hung1001 .searchbar-live-hung1001 {
+        outline: none;
+        width: 90%;
+        float: left;
+        display: block;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    .searchform-live-hung1001 .searchbar-live-hung1001:focus {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    }
+
+    .searchform-live-hung1001 .searchbar-live-hung1001::-moz-placeholder {
+        color: #999;
+        opacity: 1;
+    }
+
+    .searchform-live-hung1001 .searchbar-live-hung1001:-ms-input-placeholder {
+        color: #999;
+    }
+
+    .searchform-live-hung1001 .searchbar-live-hung1001::-webkit-input-placeholder {
+        color: #999;
+    }
+
+    .searchform-live-hung1001 .searchbar-live-hung1001::-ms-expand {
+        background-color: transparent;
+        border: 0;
+    }
+
+    .search-out-live-hung1001 {
+        width: 100%;
+        top: 100%;
+        left: 0;
+        display: none;
+        border: 1px solid #ccc;
+        position: absolute;
+        z-index: 100;
+        background: #FFFFFF;
+        box-shadow: rgba(0, 0, 0, 0.117647) 0 6px 10px;
+    }
+
+    .search-label-live-hung1001 {
+        display: none;
+        font-size: 14px;
+        display: block;
+        padding: 10px
+    }
+
+    .search-item-live-hung1001 {
+        overflow: auto;
+        padding: 10px 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .search-item-live-hung1001 img {
+        float: left;
+        width: 70px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .search-item-live-hung1001 a {
+        font-size: 17px;
+        color: #222;
+        display: block;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .more-result-live-hung1001 {
+        text-decoration: none;
+        color: #111;
+    }
+
+    .more-result-live-hung1001:hover {
+        opacity: .8;
+        transition: .3s
+    }
+
+    .more-result-live-hung1001 b {
+        color: #222;
+        text-transform: uppercase
+    }
+
+    .searchsubmit-live-hung1001 {
+        width: 39px;
+        background: transparent;
+        font-family: fontawesome;
+        height: 34px;
+        -webkit-appearance: button;
+        cursor: pointer;
+        outline: 0;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+    }
+
+    .search-label-live-hung1001 {
+        font-size: 16px
+    }
+
+    .more-result-live-hung1001-wrap {
+        padding: 10px;
+        background: rgba(245, 245, 245, .8);
+        text-align: center;
+        position: relative
+    }
+
+    #close-search {
+        text-decoration: none;
+        color: #111;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        padding: 0 12px 0 10px;
+        font-weight: bold;
+        font-size: 34px;
+        border-left: 1px solid #ddd;
+    }
+
+    #close-search:hover {
+        background: #fff;
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <div class='search-wrap-live-hung1001'>
+        <form class='searchform-live-hung1001' action='/search' method='get'>
+            <input class='searchbar-live-hung1001' id="searchbar-live-hung1001" placeholder='Type your text ...' type='search' autocomplete="off" />
+            <input class='searchsubmit-live-hung1001' type='submit' value="&#xf002" />
+        </form>
+        <div class='search-out-live-hung1001'>
+            <span class='search-label-live-hung1001'></span>
+            <div class='search-result'></div>
+            <div class="more-result-live-hung1001-wrap">
+                <a class='more-result-live-hung1001' href='#'><i class='fa fa-folder-open-o'></i> View all results for "<b></b>"</a>
+                <a href="javascript:void(0)" id="close-search" title="Close">&times;</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    // BLogger live search by Hung1001
+    var homepage = "https://hunghoangvan1001nd.blogspot.com"; // Your domain
+    var result = 5; // Number of result
+    var max_result = 5; // For page navigation
+    var no_thumbnail = "https://i.imgur.com/x5ykUQS.png"; // No thumbnail
+    var target_blank = false;
+
+    $(document).ready(function() {
+        $("#close-search").click(function() {
+            $(".search-out-live-hung1001").hide();
+        });
+        var textInput = document.getElementById("searchbar-live-hung1001");
+        var timeout = null;
+        // tạo sự kiện keyup: sau khi người dùng nhả phím ra 500ms thì bắt đầu search 
+        textInput.onkeyup = function(e) {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                // remove content cũ để apply dữ liệu mới sau mỗi lần thay đổi nội dung input
+                $('.search-item-live-hung1001').remove();
+                $('.search-result').empty();
+                // lấy từ khóa
+                var labelname = $('.searchbar-live-hung1001').val();
+                if (labelname.length >= 1) {
+                    // hiện div kết quả
+                    $('.search-out-live-hung1001').show();
+                    // hiện div mô tả trong khi đang tìm kiếm
+                    $('.search-label-live-hung1001').show().html('Searching ...');
+                    $.ajax({
+                        type: 'GET',
+                        url: homepage + '/feeds/posts/default',
+                        data: {
+                            'max-results': result,
+                            'alt': 'json',
+                            'q': labelname
+                        },
+                        contentType: 'application/json',
+                        dataType: 'jsonp',
+                        success: function(json) {
+                            if (json.feed.entry) {
+                                for (var i = 0; i < json.feed.entry.length; i++) {
+                                    // lấy link bài viết
+                                    for (var j = 0; j < json.feed.entry[i].link.length; j++) {
+                                        if (json.feed.entry[i].link[j].rel == 'alternate') {
+                                            var postUrl = json.feed.entry[i].link[j].href;
+                                            break;
+                                        }
+                                    }
+                                    // lấy thumbnail
+                                    try {
+                                        var imageurl = json.feed.entry[i].media$thumbnail.url;
+                                    } catch (e) {
+                                        var imageurl = no_thumbnail;
+                                    }
+                                    // lấy tiêu đề
+                                    var postTitle = json.feed.entry[i].title.$t;
+                                    // truyền dữ liệu
+                                    if (target_blank) {
+                                        var item = '<div class="search-item-live-hung1001"><a href="' + postUrl + '" target="_blank"><img src="' + imageurl + '"/></a><a href="' + postUrl + '" target="_blank">' + postTitle + '</a></div>';
+                                    } else {
+                                        var item = '<div class="search-item-live-hung1001"><a href="' + postUrl + '"><img src="' + imageurl + '"/></a><a href="' + postUrl + '">' + postTitle + '</a></div>';
+                                    }
+                                    // append dữ liệu 
+                                    $('.search-result').append(item);
+                                    item = "";
+                                }
+                                // thêm liên kết vào từ khóa nếu người dùng muốn chuyển sang trang /search truyền thống
+                                $('.more-result-live-hung1001').attr('href', homepage + '/search?q=' + labelname + '&max-results=' + max_result);
+                                // ẩn div mô tả và hiện div "xem thêm"
+                                $('.search-label-live-hung1001').hide(function() {
+                                    $('.more-result-live-hung1001 b').text(labelname);
+                                    $('.more-result-live-hung1001-wrap').show();
+                                });
+                            } else {
+                                // không có kết quả
+                                $('.search-label-live-hung1001').html('<i class="fa fa-meh-o"></i> No result ! Please try again');
+                                $('.more-result-live-hung1001-wrap').hide();
+                            }
+
+                        }
+                    });
+                }
+            }, 500);
+        };
+    });
+    </script>
+</body>
+
+</html>
