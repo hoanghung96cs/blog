@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dropdown Suggest Search</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Blogger code / paste into your template -->
+    <!--
+    <b:section class='search-wrap' id='search-wrap' showaddelement='yes'>
+        <b:widget id='Label69' locked='false' title='Category' type='Label' version='1'>
+            <b:widget-settings>
+                <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+                <b:widget-setting name='display'>LIST</b:widget-setting>
+                <b:widget-setting name='selectedLabelsList' />
+                <b:widget-setting name='showType'>ALL</b:widget-setting>
+                <b:widget-setting name='showFreqNumbers'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+                <div expr:class='&quot;widget-content &quot; + data:display + &quot;-label-widget-content&quot;'>
+                    <b:if cond='data:display == &quot;list&quot;'>
+                        <div class='droplabel'>
+                            <select class='dropdown-select'>
+                                <option class="labdrop" title="Select category" value="0">
+                                    Select category
+                                </option>
+                                <b:loop values='data:labels' var='label'>
+                                    <option class='labdrop' expr:title='data:label.name' expr:value='data:label.name'>
+                                    	<data:label.name/> (<data:label.count/>)
+                                    </option>
+                                </b:loop>
+                            </select>
+                        </div>
+                    </b:if>
+                </div>
+            </b:includable>
+        </b:widget>
+        <b:widget id='HTML777' locked='true' title='Search' type='HTML' version='1'>
+            <b:widget-settings>
+                <b:widget-setting name='content'>
+                    <![CDATA[
+                    <form autocomplete="off" id="hh-search" method="get" action="/search">
+                    <div class="hh-search-wrap">
+                        <input id="hh-search" name="q" type="text" required="" placeholder="Search ...">
+                        <button id="hh-submit" type="submit"><i class="fa fa-search"></i></button>
+                        <input name="max-results" type="hidden" value="20">
+                        <div class="filter-label"></div>
+                    </div>
+                </form>
+                    ]]>
+                </b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+                <div class='widget-content'>
+                    <data:content/>
+                </div>
+            </b:includable>
+        </b:widget>
+    </b:section>
+	-->
+    <!-- HTML code render / for live demo ! do not copy into your template -->
+    <div class='search-wrap section' id='search-wrap'>
+        <div class="widget Label" data-version="1" id="Label69">
+            <div class="widget-content list-label-widget-content">
+                <div class="droplabel">
+                    <select class="dropdown-select">
+                        <option class="labdrop" title="Select category" value="0">
+                            Select category
+                        </option>
+                        <option class="labdrop" title="Break" value="Break">
+                            Break (2)
+                        </option>
+                        <option class="labdrop" title="Business" value="Business">
+                            Business (4)
+                        </option>
+                        <option class="labdrop" title="DIY" value="DIY">
+                            DIY (2)
+                        </option>
+                        <option class="labdrop" title="Fashion" value="Fashion">
+                            Fashion (2)
+                        </option>
+                        <option class="labdrop" title="Food" value="Food">
+                            Food (4)
+                        </option>
+                        <option class="labdrop" title="gadgets" value="gadgets">
+                            gadgets (2)
+                        </option>
+                        <option class="labdrop" title="ipad" value="ipad">
+                            ipad (2)
+                        </option>
+                        <option class="labdrop" title="Learn" value="Learn">
+                            Learn (1)
+                        </option>
+                        <option class="labdrop" title="Mega Menu" value="Mega Menu">
+                            Mega Menu (4)
+                        </option>
+                        <option class="labdrop" title="Mobile" value="Mobile">
+                            Mobile (2)
+                        </option>
+                        <option class="labdrop" title="Music" value="Music">
+                            Music (3)
+                        </option>
+                        <option class="labdrop" title="Nature" value="Nature">
+                            Nature (1)
+                        </option>
+                        <option class="labdrop" title="News" value="News">
+                            News (3)
+                        </option>
+                        <option class="labdrop" title="People" value="People">
+                            People (3)
+                        </option>
+                        <option class="labdrop" title="Photography" value="Photography">
+                            Photography (1)
+                        </option>
+                        <option class="labdrop" title="Slider" value="Slider">
+                            Slider (1)
+                        </option>
+                        <option class="labdrop" title="Sport" value="Sport">
+                            Sport (6)
+                        </option>
+                        <option class="labdrop" title="Sports" value="Sports">
+                            Sports (4)
+                        </option>
+                        <option class="labdrop" title="Tech" value="Tech">
+                            Tech (9)
+                        </option>
+                        <option class="labdrop" title="Technology" value="Technology">
+                            Technology (5)
+                        </option>
+                        <option class="labdrop" title="Travel" value="Travel">
+                            Travel (2)
+                        </option>
+                        <option class="labdrop" title="Video" value="Video">
+                            Video (3)
+                        </option>
+                        <option class="labdrop" title="Watch" value="Watch">
+                            Watch (2)
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class='widget HTML' data-version='1' id='HTML777'>
+            <div class='widget-content'>
+                <form autocomplete="off" id="hh-search" method="get" action="/search">
+                    <div class="hh-search-wrap">
+                        <input id="hh-search" name="q" type="text" required="" placeholder="Search ...">
+                        <button id="hh-submit" type="submit"><i class="fa fa-search"></i></button>
+                        <input name="max-results" type="hidden" value="20">
+                        <div class="filter-label"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End HTML code render -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    // Dropdown Suggest Search by Hung1001
+    $('.dropdown-select').on('change', function() {
+        if (this.value != 0) {
+            $('.filter-label').show().empty();
+            $.ajax({
+                url: 'https://hunghoangvan1001nd.blogspot.com/feeds/posts/default/-/' + this.value,
+                type: 'GET',
+                dataType: 'jsonp',
+                data: {
+                    alt: 'json',
+                    'max-results': 150,
+                },
+            }).done(function(e) {
+                var r = '';
+                for (var n = 0; n < e.feed.entry.length; n++) {
+
+                    for (var s = 0; s < e.feed.entry[n].link.length; s++) {
+                        if (e.feed.entry[n].link[s].rel === "alternate") {
+                            t = e.feed.entry[n].link[s].href;
+                            break
+                        }
+                    }
+
+                    f = e.feed.entry[n].title.$t;
+
+                    if ("media$thumbnail" in e.feed.entry[n]) {
+                        d = e.feed.entry[n].media$thumbnail.url.replace("s72-c", "s640");
+                    } else {
+                        d = "https://3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s1600-r/nth.png"
+                    }
+
+                    r += "<div class='filter-inner'><div class='filter-thumb'><a href='" + t + "'><img src='" + d + "'/></a></div><div class='filter-title'><a title='" + f + "' href='" + t + "'>" + f + "</a></div></div>";
+                }
+                $('.filter-label').append(r);
+                r = "";
+            })
+        } else {
+            $('.filter-label').hide().empty();
+        }
+    });
+    </script>
+    <style type="text/css">
+    /* CSS demo, not responsive */
+
+    body {
+        font-family: arial, sans-serif;
+        font-size: 15px
+    }
+
+    .search-wrap .widget {
+        float: left
+    }
+
+    .search-wrap .Label .list-label-widget-content .droplabel>select {
+        border: 1px solid #ddd;
+        padding: 5px 10px 4px;
+        font-size: 15px;
+        max-width: 170px;
+        overflow: hidden;
+        outline: none;
+    }
+
+    .search-wrap .HTML .hh-search-wrap {
+        position: relative
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-search {
+        outline: none;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-left: 0;
+        border-right: 0;
+        padding: 6px 10px 5px;
+        float: left;
+        min-width: 250px;
+        font-size: 15px;
+        color: #000;
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-search::-webkit-input-placeholder {
+        /* WebKit, Blink, Edge */
+        color: #000;
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-search:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #000;
+        opacity: 1;
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-search::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #000;
+        opacity: 1;
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-search:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #000;
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-search::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #000;
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-search::placeholder {
+        /* Most modern browsers support this now. */
+        color: #000;
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-submit {
+        outline: none;
+        background: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 6px 20px 7px;
+        cursor: pointer
+    }
+
+    .search-wrap .HTML .hh-search-wrap #hh-submit:hover {
+        background: #e6e6e6;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease;
+    }
+
+    .filter-label {
+        display: none;
+        position: absolute;
+        top: 100%;
+        padding: 15px 15px 0 10px;
+        border-top: 0;
+        border: 1px solid #eee;
+        left: -1px;
+        width: 92%;
+        max-height: 350px;
+        overflow: auto;
+    }
+
+    .filter-label .filter-inner .filter-thumb {
+        clear: both;
+    }
+
+    .filter-label .filter-inner .filter-thumb img {
+        float: left;
+        width: 80px;
+        height: 55px;
+        margin: 0 12px 15px 0;
+        border-radius: 4px;
+    }
+
+    .filter-label .filter-inner .filter-title a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .filter-label .filter-inner .filter-title a:hover {
+        color: #2187e7;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease;
+    }
+    </style>
+</body>
+
+</html>
