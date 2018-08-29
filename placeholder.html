@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hack Input Placeholder</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    #hh-search {
+        outline: none;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 0;
+        padding: 7px 10px;
+        float: left;
+        min-width: 300px;
+        font-size: 15px;
+        color: #000
+    }
+
+    #hh-submit {
+        outline: none;
+        background: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 8px 30px;
+        cursor: pointer
+    }
+
+    #hh-submit:hover {
+        background: #e6e6e6;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease
+    }
+
+    .input-required {
+        position: relative
+    }
+
+    .input-required>label {
+        position: absolute;
+        left: 10px;
+        top: 9px;
+        color: #444;
+        font-size: 14px;
+        font-family: roboto, sans-serif;
+    }
+
+    .input-required>label i.fa-search::before {
+        font-size: 13px;
+        margin-right: 2px;
+        position: relative;
+        top: -1px;
+    }
+
+    .input-required .hide {
+        display: none
+    }
+    </style>
+</head>
+
+<body>
+    <form autocomplete="off" method="get" action="/search">
+        <div class="input-required">
+            <input id="hh-search" name="q" type="text" required="">
+            <label><span style='color:green'><i class='fa fa-search'></i> Secure |</span> Search ...</label>
+            <button id="hh-submit" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".input-required input").on("focus", function() {
+            $(this).parent(".input-required").find("label").hasClass("hide") || $(this).parent(".input-required").find("label").addClass("hide")
+        }), $(".input-required input").on("blur", function() {
+            "" == $(this).val() && $(this).parent(".input-required").find("label").hasClass("hide") && $(this).parent(".input-required").find("label").removeClass("hide")
+        })
+    });
+    </script>
+</body>
+
+</html>
