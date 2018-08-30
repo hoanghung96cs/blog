@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Limited Feeds</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-lg-12 col-md-12 col-sm 12">
+            <div class="row">
+                <h3><b>Nhập domain của bạn vào đây</b></h3>
+                <textarea class="form-control" rows="1" id="domain"></textarea>
+                <br>
+                <div class="btn-wrap">
+                    <a class="btn btn-primary" id="btn-callback">CALLBACK</a>
+                    <a class="btn btn-danger" id="btn-ajax">Ajax</a>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div id="demo"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var domain,
+        totalEntires = 0,
+        totalPosts = 0;
+    $(function() {
+        $("#domain").focus();
+    });
+
+    // Sử dụng javascript với api callback
+    function myCallBack(json) {
+        if ("entry" in json.feed) {
+            if ((document.getElementById("domain").value.length) != 0) {
+                domain = document.getElementById("domain").value;
+            }
+            totalEntires += json.feed.entry.length;
+            totalPosts = json.feed.openSearch$totalResults.$t;
+            if (totalPosts > totalEntires) {
+                var s = document.createElement("script");
+                s.type = "text/javascript";
+                startindex = totalEntires + 1;
+                s.setAttribute("src", domain + "/feeds/posts/summary?start-index=" + startindex + "&max-results=150&alt=json-in-script&callback=myCallBack");
+                document.getElementById("demo").appendChild(s);
+            }
+            document.getElementById("demo").innerHTML += "<b>" + json.feed.entry.length + "</b>";
+            for (var i = 0; i < json.feed.entry.length; i++) {
+                a = json.feed.entry[i].title.$t;
+                document.getElementById("demo").innerHTML += "<li>Tiêu đề của bài thứ " + i + ": " + a + "</li>";
+            }
+        }
+    }
+    document.getElementById("btn-callback").addEventListener("click", function() {
+        if ((document.getElementById("domain").value.length) != 0) {
+            document.getElementById("demo").innerHTML = "";
+            document.getElementById("demo").innerHTML += "<h3><b>Javascript Callback</b><h3>"
+            domain = document.getElementById("domain").value;
+            var t = document.createElement("script");
+            t.type = "text/javascript";
+            t.setAttribute("src", domain + "/feeds/posts/summary?alt=json-in-script&max-results=150&callback=myCallBack");
+            document.body.appendChild(t);
+        } else {
+            alert("Nhập domain của bạn vào đã !")
+        }
+    });
+
+    //  Sử dụng jQuery với ajax get
+    $("#btn-ajax").on("click", function() {
+        if (($("#domain").val().length) != 0) {
+            $("#demo").empty().append("<h3><b>jQuery Ajax</b><h3>");
+            domain = $("#domain").val();
+            $.ajax({
+                url: domain + '/feeds/posts/summary',
+                type: 'GET',
+                dataType: 'jsonp',
+                data: {
+                    alt: 'json',
+                    'max-results': 0
+                },
+            }).done(function(json) {
+                totalPosts = json.feed.openSearch$totalResults.$t;
+                if (totalPosts % 150 == 0) {
+                    num = (totalPosts / 150) - 1
+                } else {
+                    num = Math.floor(totalPosts / 150);
+                }
+                /*! jQuery Ajax Queue 
+                 * https://github.com/gnarf37/jquery-ajaxQueue
+                 */
+                (function(e) {
+                    var r = e({});
+                    e.ajaxQueue = function(n) {
+                        function t(r) {
+                            u = e.ajax(n).done(a.resolve).fail(a.reject).then(r, r)
+                        }
+                        var u, a = e.Deferred(),
+                            i = a.promise();
+                        return r.queue(t), i.abort = function(o) {
+                            if (u) return u.abort(o);
+                            var c = r.queue(),
+                                f = e.inArray(t, c);
+                            return f > -1 && c.splice(f, 1), a.rejectWith(n.context || n, [i, o, ""]), i
+                        }, i
+                    }
+                })(jQuery);
+                for (var k = 0; k <= num; k++) {
+                    $.ajaxQueue({
+                        url: domain + '/feeds/posts/summary',
+                        type: 'GET',
+                        dataType: 'jsonp',
+                        data: {
+                            alt: 'json',
+                            'max-results': 150,
+                            'start-index': (150 * k) + 1
+                        },
+                    }).done(function(e) {
+                        if ("entry" in e.feed) {
+                            $("#demo").append("<b>" + e.feed.entry.length + "</b>");
+                            for (var i = 0; i < e.feed.entry.length; i++) {
+                                a = e.feed.entry[i].title.$t;
+                                $("#demo").append("<li>Tiêu đề của bài thứ " + i + ": " + a + "</li>");
+                            }
+                        }
+                    })
+                }
+            })
+        } else {
+            alert("Nhập domain của bạn vào đã !")
+        }
+    })
+    </script>
+</body>
+
+</html>
