@@ -1,0 +1,278 @@
+<html lang="en">
+
+<head>
+    <title>Related Post when scroll</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=latin-ext,vietnamese">
+</head>
+
+<body>
+    <center>
+        <h2>Scroll down to see effect</h2></center>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <style type="text/css">
+    body {
+        font-family: "roboto", sans-serif;
+        font-size: 15px;
+        min-height: 3000px
+    }
+
+    #rt-related {
+        width: 350px;
+        overflow: hidden;
+        height: 190px;
+        position: fixed;
+        bottom: 20px;
+        right: 0;
+        background: #fff;
+        box-shadow: 0px 6px 35px -6px rgba(168, 165, 168, .7);
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        -ms-transition: all .5s;
+        -o-transition: all .5s;
+        transition: all .5s;
+        -webkit-transform: translateX(400px);
+        -moz-transform: translateX(400px);
+        -ms-transform: translateX(400px);
+        -o-transform: translateX(400px);
+        transform: translateX(400px);
+    }
+
+    #rt-related.show {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    #rt-related.hide {
+        -webkit-transform: translateX(400px);
+        -moz-transform: translateX(400px);
+        -ms-transform: translateX(400px);
+        -o-transform: translateX(400px);
+        transform: translateX(400px);
+    }
+
+    #rt-related .rt-header {
+        padding: 9px 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    #rt-related .rt-header .rt-title {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    #rt-related .rt-header .rt-close {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 11px 15px;
+        background: #ececec;
+        cursor: pointer;
+    }
+
+    #rt-related .rt-header .rt-close:hover,
+    #rt-related .rt-navigation a:hover {
+        background: #ccc;
+        -webkit-transition: .25s ease;
+        -moz-transition: .25s ease;
+        -ms-transition: .25s ease;
+        -o-transition: .25s ease;
+        transition: .25s ease;
+    }
+
+    #rt-related .rt-item {
+        padding: 15px;
+        width: 320px;
+        float: left;
+    }
+
+    #rt-related .rt-list {
+        overflow: hidden;
+        width: 600px;
+        transition: all 0.5s;
+    }
+
+    #rt-related .rt-thumb img {
+        height: 85px;
+        float: left;
+        width: 130px;
+        margin-right: 10px;
+        border-radius: 4px;
+    }
+
+    #rt-related .rt-info a {
+        text-decoration: none;
+        color: #000;
+        font-size: 15px;
+        font-weight: bold;
+        font-family: "roboto", sans-serif;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        max-height: 60px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        margin-bottom: 10px;
+    }
+
+    #rt-related .rt-info .rt-author {
+        font-size: 13px;
+    }
+
+    #rt-related .rt-info .rt-author::before {
+        font-family: fontawesome;
+        content: "\f2be";
+        margin-right: 5px;
+    }
+
+    #rt-related .rt-navigation {
+        margin: 5px 0 0;
+        padding: 0 15px;
+        text-align: right;
+    }
+
+    #rt-related .rt-navigation .rt-left,
+    #rt-related .rt-navigation .rt-right {
+        display: inline-block;
+    }
+
+    #rt-related .rt-navigation a {
+        border: 1px solid #ddd;
+        margin-right: 8px;
+        font-size: 10px;
+        border-radius: 100%;
+        cursor: pointer
+    }
+
+    #rt-related .rt-navigation .rt-left a {
+        padding: 5px 9px 5px 7px;
+    }
+
+    #rt-related .rt-navigation .rt-right a {
+        padding: 5px 7px 5px 9px;
+    }
+    </style>
+    <script type="text/javascript">
+    $(window).on('load', function() {
+        // xml code Blog1 v1
+        // var labelArray = [<b:if cond='data:post.labels'><b:loop values='data:post.labels' var='label'>&quot;<data:label.name/>&quot;<b:if cond='data:label.isLast != &quot;true&quot;'>, </b:if></b:loop></b:if>]; // tạo 1 mảng lưu các label widget Blog1 v1
+
+        // xml code Blog1 v2
+        // var labelArray = [<b:if cond='data:post.labels'><b:loop index='i' values='data:post.labels' var='label'>&quot;<data:label.name/>&quot;<b:if cond='data:post.labels.size != data:i + 1'>,</b:if></b:loop></b:if>] // tạo 1 mảng lưu các label widget Blog1 v2
+
+        // Label name render for demo
+        var labelArray = ["Business", "News", "Tech"];
+        var numPost = "5"; // số bài muốn hiển thị
+        var scr = 500 // hiện box bài viết liên quan khi cuộn trang vượt quá con số này
+
+        var c,d;
+
+        c = '<div id="rt-related"><div class="rt-header"><div class="rt-title">Related Posts</div><div class="rt-close"><a class="close"><i class="fa fa-times"></i></a></div></div><div class="rt-list">';
+
+        // đảo lộn mảng để lấy 1 label bất kì
+        if (labelArray.length) {
+            var j, x, i;
+            for (i = labelArray.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                x = labelArray[i];
+                labelArray[i] = labelArray[j];
+                labelArray[j] = x;
+            }
+            d = labelArray[0]
+        };
+        // ajax get dữ liệu và append vào mã HTML
+        $.ajax({
+            type: "GET",
+            url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/summary/-/" + d,
+            dataType: "jsonp",
+            data: {
+                "max-results": numPost,
+                "alt": "json-in-script"
+            },
+            success: function(json) {
+                if (json.feed.entry) {
+                    for (var i = 0; i < json.feed.entry.length; i++) {
+                        var k = json.feed.entry[i].title.$t,
+                            l = json.feed.entry[i].author[0].name.$t;
+                        for (var j = 0; j < json.feed.entry[i].link.length; j++) {
+                            if ("alternate" == json.feed.entry[i].link[j].rel) {
+                                var m = json.feed.entry[i].link[j].href;
+                                break
+                            }
+                        }
+                        if (json.feed.entry[i].media$thumbnail) {
+                            var g = json.feed.entry[i].media$thumbnail.url.replace("s72-c", "s1600");
+                        } else {
+                            var g = "https://3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s1600-r/nth.png"
+                        }
+                        c += '<div class="rt-item"><div class="rt-thumb"><a href="' + m + '""><img src="' + g + '"></a></div><div class="rt-info"><a href="' + m + '">' + k + "</a><span class='rt-author'>" + l + "</span></div></div>"
+                    }
+                    c += '</div><div class="rt-navigation"><div class="rt-left"><a><i class="fa fa-chevron-left"></i></a></div><div class="rt-right"><a><i class="fa fa-chevron-right"></i></a></div></div>'
+                }
+                // get xong dữ liệu và append vào body
+                $("body").append(c);
+
+                $("#rt-related").each(function() {
+
+                    // tạo thanh menu điều hướng bài đăng theo css width và transform
+                    var b = $(this).find(".rt-list"),
+                        e = 0,
+                        f = 0,
+                        g = true;
+
+                    // set width cho div main để hiển thị trên 1 dòng
+                    for (var h = 1; h < $(this).find(".rt-item").length; h++) {
+                        e += $(this).find(".rt-item").outerWidth();
+                    }
+                    b.width(e + $(this).find(".rt-item").outerWidth());
+
+                    // button left
+                    $(this).find(".rt-left a").click(function(a) {
+                        a.preventDefault()
+                        if (f == 0) {
+                            f = -e
+                        } else {
+                            f = f + 350
+                        }
+                        b.css("transform", "translateX(" + f + "px)")
+                    })
+
+                    // button right
+                    $(this).find(".rt-right a").click(function(a) {
+                        a.preventDefault();
+                        if (f == -e) {
+                            f = 0
+                        } else {
+                            f = f - 350
+                        }
+                        b.css("transform", "translateX(" + f + "px)")
+                    })
+
+                    // button close
+                    $(this).find(".rt-close").click(function(a) {
+                        a.preventDefault();
+                        $("#rt-related").addClass('hide').removeClass('show');
+                        g = false;
+                    })
+
+                    // bắt sự kiện cuộn trang để hiển thị box bài đăng liên quan
+                    $(window).scroll(function() {
+                        if ($(window).scrollTop() > scr && g) {
+                            $("#rt-related").addClass('show').removeClass('hide');
+                        } else {
+                            if ($(window).scrollTop() < scr && g) {
+                                $("#rt-related").addClass('hide').removeClass('show');
+                            }
+                        }
+                    })
+                })
+            }
+        })
+    });
+    </script>
+</body>
+
+</html>
