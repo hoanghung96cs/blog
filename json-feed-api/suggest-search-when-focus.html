@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Suggest Search when focus</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    <style>
+    .sg-wrap {
+        position: relative;
+        width: 400px
+    }
+
+    .sg-form {
+        position: relative;
+    }
+
+    .sg-input {
+        outline: none;
+        width: 90%;
+        float: left;
+        display: block;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    .sg-submit {
+        width: 39px;
+        background: transparent;
+        font-family: fontawesome;
+        height: 34px;
+        -webkit-appearance: button;
+        cursor: pointer;
+        outline: 0;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+    }
+
+    .sg-results {
+        display: none;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        border: 1px solid #ddd;
+        padding: 15px;
+        max-height: 445px;
+        overflow: auto;
+    }
+
+    .sg-item {
+        clear: both;
+        margin-bottom: 25px;
+    }
+
+    .sg-thumb img {
+        float: left;
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        margin-right: 10px;
+        margin-bottom: 15px;
+    }
+
+    .sg-title a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+        font-family: arial, sans-serif;
+        font-size: 15px;
+    }
+
+    .sg-title a:hover {
+        color: #0088ff;
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+
+    .sg-close {
+        position: absolute;
+        top: 3px;
+        right: 13%;
+        font-size: 20px;
+        color: #000;
+        display: none;
+        cursor: pointer
+    }
+    </style>
+    <div class="container">
+        <h2 class="text-center"><b>Suggest Search when focus</b></h2>
+        <div class="row">
+            <div class="col-lg-12">
+                <label>
+                    <h3>Nhập domain của bạn để kiểm tra</h3></label>
+                <input class="form-control" id="domain">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <label>
+                    <h3>Nhập xong rồi thì focus chuột vào ô input này</h3></label>
+                <div class='sg-wrap' id='sg-wrap'>
+                    <form class='sg-form' action='/search' method='get'>
+                        <input class='sg-input' placeholder='Type your text ...' type='search' autocomplete="off" />
+                        <input class='sg-submit' type='submit' value="&#xf002" />
+                        <a class="sg-close"><i class='fa fa-times'></i></a>
+                    </form>
+                    <div class='sg-results'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    // Suggest Search when focus by Hung1001
+    var count = 0,
+        total;
+
+    function getResults(json) {
+        if (json.feed.entry) {
+            total = json.feed.openSearch$totalResults.$t;
+            count += json.feed.entry.length;
+            if (count < total && $("#domain").val().length != 0) {
+                $.ajax({
+                    url: $("#domain").val() + '/feeds/posts/default',
+                    type: "GET",
+                    data: {
+                        "alt": "json",
+                        "max-results": 150,
+                        "start-index": count + 1,
+                    },
+                    dataType: "jsonp",
+                    jsonpCallback: "getResults"
+                });
+            }
+            for (var i = 0; i < json.feed.entry.length; i++) {
+                for (var j = 0; j < json.feed.entry[i].link.length; j++)
+                    if ("alternate" == json.feed.entry[i].link[j].rel) {
+                        var b = json.feed.entry[i].link[j].href;
+                        break
+                    }
+
+                var c = json.feed.entry[i].title.$t;
+
+                try {
+                    var d = json.feed.entry[i].media$thumbnail.url;
+                } catch (exeption) {
+                    var d = "https://3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s72-c/nth.png"
+                }
+
+                $(".sg-results").append("<div class='sg-item'><div class='sg-thumb'><a href='" + b + "'><img src='" + d + "'/></a></div><div class='sg-title'><a href='" + b + "'>" + c + "</a></div></div>")
+            }
+        };
+    }
+
+    function ajaxGet() {
+        $(".sg-close").show()
+        $(".sg-results").empty().slideDown("500");
+        $.ajax({
+            url: $("#domain").val() + '/feeds/posts/default',
+            type: "GET",
+            data: {
+                "alt": "json",
+                "max-results": 150,
+            },
+            dataType: "jsonp",
+            jsonpCallback: "getResults",
+        })
+    }
+
+    $(".sg-input").on("focus", function() {
+        if ($("#domain").val().length != 0) {
+            ajaxGet()
+        } else {
+            alert("Chưa nhập domain !");
+            $(".sg-input").blur()
+        }
+    });
+
+    $(".sg-input").on("keyup", function() {
+        if ($(this).val().length > 0) {
+            $(".sg-results").empty().slideUp("500");
+            $(".sg-close").hide()
+        } else {
+            count = 0;
+            total = 0;
+            ajaxGet()
+        }
+    });
+
+    $(".sg-close").on("click", function() {
+        $(".sg-results").empty().slideUp("500");
+        $(this).hide()
+    });
+    </script>
+</body>
+
+</html>
