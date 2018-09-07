@@ -255,7 +255,7 @@
         $(".os-post").addClass("spinner").empty();
         var numPost = 10;
         $.ajax({
-            url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
+            url: "/feeds/posts/default",
             type: "get",
             data: {
                 alt: 'json-in-script',
@@ -286,7 +286,7 @@
                 for (var v = 0; v < numPost; v++) {
                     for (var w = 1; w <= 1; w++)
                         $.ajax({
-                            url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
+                            url: "/feeds/posts/default",
                             type: "get",
                             data: {
                                 'start-index': get_rand(nums),
