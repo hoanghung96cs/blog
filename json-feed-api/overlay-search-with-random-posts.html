@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Overlay Search with Random Posts written by Hung1001 -->
+    <meta charset="UTF-8">
+    <title>Overlay Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: arial, sans-serif;
+        font-size: 100%
+    }
+
+    .os-search {
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: #fff;
+        visibility: hidden;
+        opacity: 0;
+        -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -ms-transition: .4s;
+        -o-transition: .4s;
+        transition: .4s;
+        -webkit-transform: scale(.8);
+        -moz-transform: scale(.8);
+        -ms-transform: scale(.8);
+        -o-transform: scale(.8);
+        transform: scale(.8);
+    }
+
+    .os-search.active {
+        visibility: visible;
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .os-img {
+        text-align: center;
+    }
+
+    .os-img img {
+        max-width: 100%;
+        height: 92px;
+        width: 272px;
+    }
+
+    #os-close {
+        position: fixed;
+        top: 10px;
+        cursor: pointer;
+        right: 20px;
+        color: #000;
+        font-size: 20px;
+        padding: 5px 10px;
+        border-radius: 100%;
+    }
+
+    #os-close:hover {
+        background: #f1f1f1;
+        color: #524d4d;
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+
+    .os-inner {
+        max-width: 55%;
+        margin: 0 auto;
+        background-color: #fefefe;
+        padding: 20px;
+        top: 15%;
+        position: relative;
+    }
+
+    .os-form {
+        position: relative;
+        max-width: 100%;
+        margin: 2em 1em 3em
+    }
+
+    .os-input {
+        border-radius: 100px;
+        background: #F1F3F4;
+        border: none;
+        bottom: 0;
+        box-sizing: border-box;
+        left: 0;
+        margin: 0;
+        outline: none;
+        padding: 13px 15px;
+        width: 96%;
+        font-size: 15px;
+    }
+
+    .os-submit {
+        cursor: pointer;
+        outline: none;
+        position: absolute;
+        top: 3px;
+        right: 5%;
+        background: url(data:image/png;base64,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) no-repeat center;
+        background-size: 24px 24px;
+        width: 40px;
+        height: 40px;
+        border: 0;
+    }
+
+    .os-input::placeholder {
+        color: rgb(128, 134, 139);
+        opacity: 1;
+    }
+
+    .os-input:-ms-input-placeholder {
+        color: rgb(128, 134, 139);
+    }
+
+    .os-input::-ms-input-placeholder {
+        color: rgb(128, 134, 139);
+    }
+
+    .os-item:nth-of-type(5n+1) {
+        clear: both;
+    }
+
+    .os-item:nth-of-type(5n) {
+        margin: 0
+    }
+
+    .os-item {
+        float: left;
+        width: calc(90% / 5);
+        text-align: center;
+        margin: 0 1.5% 0 0;
+    }
+
+    .os-thumb {
+        margin: 0 0 10px;
+    }
+
+    .os-thumb img {
+        border-radius: 100%;
+        width: 60px;
+        height: 60px;
+    }
+
+    .os-title {
+        margin: 0 0 2em;
+    }
+
+    .os-title a {
+        text-decoration: none;
+        color: #222;
+        font: 500 15px Arial;
+        letter-spacing: .015rem;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        line-height: 1.3;
+    }
+
+    .os-title a:hover {
+        color: #0088ff;
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+
+    .os-post {
+        position: relative
+    }
+
+    .spinner::before {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 36px;
+        height: 36px;
+        border-radius: 100%;
+        border: 4px solid #ccc;
+        border-top-color: hsl(0, 0%, 53.3%);
+        animation: spinner .8s linear infinite;
+    }
+
+    @keyframes spinner {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .os-inner {
+            max-width: 75%
+        }
+    }
+    /* for Demo */
+
+    button {
+        display: inline-block;
+        outline: none;
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+        color: #000;
+        background: transparent;
+        border-radius: 4px;
+        cursor: pointer
+    }
+    </style>
+</head>
+
+<body>
+    <br />
+    <center>
+        <button type="button"><i class="fa fa-search"></i> Show search</button>
+    </center>
+    <div class="os-search">
+        <a href="javascript:void(0)" id="os-close"><i class="fa fa-times"></i></a>
+        <div class="os-inner">
+            <div class="os-img">
+                <img src="https://i.imgur.com/wyUSX0H.png">
+            </div>
+            <div class="os-form">
+                <form class="os-form" action="/p/search.html">
+                    <input class="os-input" autocomplete="off" required="" name="q" placeholder="Type to search ..." />
+                    <input class="os-submit" type="submit" value="" />
+                </form>
+            </div>
+            <div class="os-post">
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $("button").click(function() {
+        $(".os-search").addClass("active");
+        $(".os-post").addClass("spinner").empty();
+        var numPost = 10;
+        $.ajax({
+            url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
+            type: "get",
+            data: {
+                alt: 'json-in-script',
+                'max-results': 0
+            },
+            dataType: "jsonp",
+            success: function(json) {
+                var nums = [],
+                    gen_nums = [];
+                for (var x = 0; x < json.feed.openSearch$totalResults.$t; x++) {
+                    nums.push(x + 1)
+                };
+
+                function in_array(array, el) {
+                    for (var i = 0; i < array.length; i++)
+                        if (array[i] == el) return true;
+                    return false;
+                }
+
+                function get_rand(array) {
+                    var rand = array[Math.floor(Math.random() * array.length)];
+                    if (!in_array(gen_nums, rand)) {
+                        gen_nums.push(rand);
+                        return rand;
+                    }
+                    return get_rand(array);
+                }
+                for (var v = 0; v < numPost; v++) {
+                    for (var w = 1; w <= 1; w++)
+                        $.ajax({
+                            url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
+                            type: "get",
+                            data: {
+                                'start-index': get_rand(nums),
+                                alt: 'json-in-script',
+                                'max-results': 1
+                            },
+                            dataType: "jsonp",
+                            success: function(e) {
+                                for (var n = 0; n < e.feed.entry.length; n++) {
+                                    for (var s = 0; s < e.feed.entry[n].link.length; s++) {
+                                        if (e.feed.entry[n].link[s].rel === "alternate") {
+                                            var t = e.feed.entry[n].link[s].href;
+                                            break;
+                                        }
+                                    }
+
+                                    var f = e.feed.entry[n].title.$t;
+                                    if ("media$thumbnail" in e.feed.entry[n]) {
+                                        var d = e.feed.entry[n].media$thumbnail.url;
+                                    } else {
+                                        var d = "https://3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s60-c/nth.png";
+                                    }
+                                    $(".os-post").append("<div class='os-item'><div class='os-thumb'><a href='" + t + "'><img src='" + d + "'></a></div><div class='os-title'><a title='" + f + "' href='" + t + "'>" + f + "</a></div></div>");
+                                }
+                                $(".os-post").removeClass("spinner");
+                            }
+                        })
+                }
+            }
+        })
+    });
+    $("#os-close").click(function() {
+        $(".os-search").removeClass("active");
+    });
+    </script>
+</body>
+
+</html>
