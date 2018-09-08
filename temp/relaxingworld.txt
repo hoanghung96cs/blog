@@ -1,0 +1,300 @@
+﻿    <!-- 2 Related Post Thumbnail Start -->
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        <style TueRelate2='TueRelate2'>
+        #related_posts {
+            padding: 0;
+            overflow: hidden;
+            display: inline;
+        }
+
+        ul#relpost_img_sum {
+            margin: 0;
+            padding: 0;
+            text-align: justify;
+            display: inline;
+        }
+
+        ul#relpost_img_sum li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 50%;
+            height: 82px;
+            float: left;
+            display: inline;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        ul#relpost_img_sum li a {
+            display: block;
+        }
+
+        ul#relpost_img_sum li img {
+            float: left;
+            width: 60px;
+            height: 60px;
+            margin-right: 5px;
+            padding: 1px;
+            border: 2px solid #ddd;
+            object-fit: cover;
+            object-position: 50% 50%;
+        }
+
+        ul#relpost_img_sum li img:hover {
+            border: 2px solid #C3E6D5;
+        }
+
+        ul#relpost_img_sum li a.relinkjdulx {
+            overflow: hidden;
+            margin-bottom: 0px;
+            padding-top: 0px;
+            background-image: none;
+            width: 215px;
+            float: left;
+            font-weight: normal;
+            font-size: 12.5px;
+            color: #333;
+            text-align: left;
+            line-height: 1.6em;
+        }
+
+        ul#relpost_img_sum li a.relinkjdulx:hover {
+            color: #49BA86;
+            text-decoration: none;
+        }
+
+        @media only screen and (max-width: 767px) {
+            #related_posts {
+                padding: 0;
+                overflow: hidden;
+                display: inline;
+            }
+            ul#relpost_img_sum {
+                margin: 0;
+                padding: 0;
+                text-align: justify;
+                display: inline;
+            }
+            ul#relpost_img_sum li {
+                list-style: none;
+                padding: 0px 6px 12px 0px;
+                margin: 0;
+                width: 100%;
+                height: auto;
+                float: left;
+                display: inline;
+                text-decoration: none;
+                overflow: hidden;
+            }
+            ul#relpost_img_sum li a {
+                display: block;
+            }
+            ul#relpost_img_sum li img {
+                float: left;
+                width: 100%;
+                height: 150px;
+                margin-right: 7px;
+                padding: 1px;
+                border: 2px solid #ddd;
+            }
+            ul#relpost_img_sum li img:hover {
+                border: 2px solid #C3E6D5;
+            }
+            ul#relpost_img_sum li a.relinkjdulx {
+                display: block;
+                overflow: hidden;
+                margin-bottom: 0px;
+                padding: 5px 0 0 3px;
+                background-image: none;
+                float: left;
+                font-weight: bold;
+                font-size: 12px;
+                width: 100%;
+                color: #333333;
+                text-align: left;
+                line-height: 1.6em;
+            }
+            ul#relpost_img_sum li a.relinkjdulx:hover {
+                color: #49BA86;
+                text-decoration: none;
+            }
+        }
+
+        @media only screen and (min-width: 768px) and (max-width: 959px) {
+            #related_posts {
+                padding: 0;
+                overflow: hidden;
+                display: inline;
+            }
+            ul#relpost_img_sum {
+                margin: 0;
+                padding: 0;
+                text-align: justify;
+                display: inline;
+            }
+            ul#relpost_img_sum li {
+                list-style: none;
+                padding: 0px 6px 12px 0px;
+                margin: 0;
+                width: 100%;
+                height: auto;
+                float: left;
+                display: inline;
+                text-decoration: none;
+                overflow: hidden;
+            }
+            ul#relpost_img_sum li a {
+                display: block;
+            }
+            ul#relpost_img_sum li img {
+                float: left;
+                width: 100%;
+                height: 150px;
+                margin-right: 7px;
+                padding: 1px;
+                border: 2px solid #ddd;
+            }
+            ul#relpost_img_sum li img:hover {
+                border: 2px solid #C3E6D5;
+            }
+            ul#relpost_img_sum li a.relinkjdulx {
+                display: block;
+                overflow: hidden;
+                margin-bottom: 0px;
+                padding: 5px 0 0 3px;
+                background-image: none;
+                float: left;
+                font-weight: bold;
+                font-size: 12px;
+                width: 100%;
+                color: #333333;
+                text-align: left;
+                line-height: 1.6em;
+            }
+            ul#relpost_img_sum li a.relinkjdulx:hover {
+                color: #49BA86;
+                text-decoration: none;
+            }
+        }
+        </style>
+        <script type='text/javascript'>
+        //<![CDATA[
+        var relnojudul = 0;
+        var numpost = 8;
+        var numchars = 0;
+        var reljudul = new Array();
+        var relurls = new Array();
+        var relcuplikan = new Array();
+        var relgambar = new Array();
+
+        function saringtags(g, h) {
+            var e = g.split("<");
+            for (var f = 0; f < e.length; f++) { if (e[f].indexOf(">") != -1) { e[f] = e[f].substring(e[f].indexOf(">") + 1, e[f].length) } } e = e.join("");
+            e = e.substring(0, h - 1);
+            return e
+        }
+
+        function relpostimgcuplik(h) {
+            for (var e = 0; e < h.feed.entry.length; e++) {
+                var g = h.feed.entry[e];
+                reljudul[relnojudul] = g.title.$t;
+                postcontent = "";
+                if ("content" in g) { postcontent = g.content.$t } else { if ("summary" in g) { postcontent = g.summary.$t } } relcuplikan[relnojudul] = saringtags(postcontent, numchars);
+                if ("media$thumbnail" in g) { postimg = g.media$thumbnail.url } else { postimg = "https://1.bp.blogspot.com/-Xz4yd0i8yX0/UWmBGpGDn4I/AAAAAAAAELY/b-BxtwST5cE/s1600/grey.png" } relgambar[relnojudul] = postimg;
+                for (var f = 0; f < g.link.length; f++) { if (g.link[f].rel == "alternate") { relurls[relnojudul] = g.link[f].href; break } } relnojudul++
+            }
+        }
+
+        function contains(a, e) { for (var f = 0; f < a.length; f++) { if (a[f] == e) { return true } } return false }
+
+        function artikelterkait() {
+            var v = new Array(0);
+            var w = new Array(0);
+            var x = new Array(0);
+            var A = new Array(0);
+            for (var u = 0; u < relurls.length; u++) {
+                if (!contains(v, relurls[u])) {
+                    v.length += 1;
+                    v[v.length - 1] = relurls[u];
+                    w.length += 1;
+                    w[w.length - 1] = reljudul[u];
+                    x.length += 1;
+                    x[x.length - 1] = relcuplikan[u];
+                    A.length += 1;
+                    A[A.length - 1] = relgambar[u]
+                }
+            }
+            reljudul = w;
+            relurls = v;
+            relcuplikan = x;
+            relgambar = A;
+            for (var u = 0; u < reljudul.length; u++) {
+                var B = Math.floor((reljudul.length - 1) * Math.random());
+                var i = reljudul[u];
+                var s = relurls[u];
+                var y = relcuplikan[u];
+                var C = relgambar[u];
+                reljudul[u] = reljudul[B];
+                relurls[u] = relurls[B];
+                relcuplikan[u] = relcuplikan[B];
+                relgambar[u] = relgambar[B];
+                reljudul[B] = i;
+                relurls[B] = s;
+                relcuplikan[B] = y;
+                relgambar[B] = C
+            }
+            var r = 0;
+            var D = Math.floor((reljudul.length - 1) * Math.random());
+            var z = D;
+            var q;
+            var t = document.URL;
+            while (r < numpost) {
+                if (relurls[D] != t) {
+                    q = "<li class='news-title clearfix'>";
+                    q += "<a href='" + relurls[D] + "' rel='nofollow' target='_top' title='" + reljudul[D] + "'><div class='overlayb'></div><img src='" + relgambar[D] + "' /></a>";
+                    q += "<a class='relinkjdulx' href='" + relurls[D] + "' target='_top'>" + reljudul[D] + "</a>";
+                    q += "<span class='news-text'>" + relcuplikan[D] + "</span>";
+                    q += "</li>";
+                    // document.write(q); is very bad
+                    document.getElementById("relpost_img_sum").innerHTML += q; // thay thế bằng innerHTML
+                    r++;
+                    if (r == numpost) { break }
+                }
+                if (D < reljudul.length - 1) { D++ } else { D = 0 }
+                if (D == z) { break }
+            }
+        };
+        //]]>
+        </script>
+        <script type='text/javascript'>
+        //<![CDATA[
+        $(document).ready(function() {
+            var dimension = 400;
+            $('#related_posts').find('img').each(function(n, image) {
+                var image = $(image);
+                image.attr({ src: image.attr('src').replace(/s\B\d{2,4}-c/, 's' + dimension) });
+                image.attr('width', dimension);
+                image.attr('height', dimension);
+            });
+        });
+        //]]>
+        </script>
+        <div style='max-width:100%;height:270px;margin-bottom:0px;margin-top:15px;'>
+            <div id='related_posts'>
+                <h4>Viewed Articles:</h4>
+                <script type="text/javascript">
+                $(window).on('load', function() { // sự kiện onload sau khi tất cả tài nguyên đã tải xong
+                    setTimeout(function() { // trì hoãn thêm 5s
+                        var datalabelname = "<b:loop values='data:post.labels' var='label'><b:if cond='data:label.isLast == &quot;true&quot;'><data:label.name/></b:if></b:loop>"; // lấy label name cuối cùng
+                        $.getScript('/feeds/posts/default/-/' + datalabelname + '?alt=json-in-script&callback=relpostimgcuplik&max-results=20').done(function() {
+                            $("#related_posts").append("<ul id='relpost_img_sum'><script>artikelterkait()<\/script></ul>")
+                        })
+                    }, 5000);
+                });
+                </script>
+            </div>
+        </div>
+        <div style='clear: both;' />
+    </b:if>
+    <!-- 2 Related Post Thumbnail End -->
