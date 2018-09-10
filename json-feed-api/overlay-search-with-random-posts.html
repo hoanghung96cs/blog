@@ -212,6 +212,12 @@
             max-width: 75%
         }
     }
+        
+    @media screen and (max-width: 768px) {
+        .os-inner {
+            max-width: 100%
+        }
+    }
     /* for Demo */
 
     button {
@@ -255,7 +261,7 @@
         $(".os-post").addClass("spinner").empty();
         var numPost = 10;
         $.ajax({
-            url: "/feeds/posts/default",
+            url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
             type: "get",
             data: {
                 alt: 'json-in-script',
@@ -286,7 +292,7 @@
                 for (var v = 0; v < numPost; v++) {
                     for (var w = 1; w <= 1; w++)
                         $.ajax({
-                            url: "/feeds/posts/default",
+                            url: "https://hunghoangvan1001nd.blogspot.com/feeds/posts/default",
                             type: "get",
                             data: {
                                 'start-index': get_rand(nums),
