@@ -129,7 +129,7 @@
             count += json.feed.entry.length;
             if (count < totalPost) {
                 $.ajax({
-                    url: "https://www.niemstyle.com/feeds/posts/default",
+                    url: "/feeds/posts/default",
                     type: "GET",
                     data: {
                         "alt": "json",
@@ -166,7 +166,7 @@
     }
 
     $.ajax({
-        url: "https://www.niemstyle.com/feeds/posts/default",
+        url: "/feeds/posts/default",
         type: "GET",
         data: {
             "alt": "json",
