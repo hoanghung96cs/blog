@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Live search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    .ls-wrap {
+        position: relative;
+        width: 400px
+    }
+
+    .ls-form {
+        position: relative;
+    }
+
+    .ls-input {
+        outline: none;
+        width: 90%;
+        float: left;
+        display: block;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    .ls-submit {
+        width: 39px;
+        background: transparent;
+        font-family: fontawesome;
+        height: 34px;
+        -webkit-appearance: button;
+        cursor: pointer;
+        outline: 0;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+    }
+
+    .ls-results {
+        display: none;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        max-height: 480px;
+        overflow: auto;
+        background: #fff
+    }
+
+    .ls-item {
+        clear: both;
+        min-height: 52px;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        padding: 8px 15px;
+    }
+
+    .ls-item:first-child {
+        padding: 18px 15px 8px;
+    }
+
+    .ls-item:last-child {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .ls-thumb img {
+        float: left;
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        margin-right: 10px;
+        margin-bottom: 15px;
+    }
+
+    .ls-title a {
+        text-decoration: none;
+        color: #000;
+        font-size: 15px;
+    }
+
+    .ls-title a:hover {
+        color: #0088ff;
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+    /* for demo */
+
+    body {
+        font: 400 15px Arial;
+        line-height: 1.3;
+    }
+    </style>
+</head>
+
+<body>
+    <div class='ls-wrap' id='ls-wrap'>
+        <form class='ls-form' action='/search' method='get'>
+            <input class='ls-input' placeholder='Type your text ...' type='search' autocomplete="off" />
+            <input class='ls-submit' type='submit' value="&#xf002" />
+        </form>
+        <div class='ls-results'></div>
+    </div>
+    <script type="text/javascript">
+    // Live Search Hung1001
+
+    var count = 0,
+        totalPost,
+        timeout = null,
+        listPost = [];
+
+    function getData(json) {
+        if (json.feed.entry) {
+            totalPost = json.feed.openSearch$totalResults.$t;
+            count += json.feed.entry.length;
+            if (count < totalPost) {
+                $.ajax({
+                    url: "https://www.niemstyle.com/feeds/posts/default",
+                    type: "GET",
+                    data: {
+                        "alt": "json",
+                        "max-results": 150,
+                        "start-index": count + 1,
+                    },
+                    dataType: "jsonp",
+                    jsonpCallback: "getData"
+                });
+            }
+            for (var i = 0; i < json.feed.entry.length; i++) {
+
+                for (var j = 0; j < json.feed.entry[i].link.length; j++)
+                    if ("alternate" == json.feed.entry[i].link[j].rel) {
+                        var b = json.feed.entry[i].link[j].href;
+                        break
+                    }
+
+                var c = json.feed.entry[i].title.$t;
+
+                try {
+                    var d = json.feed.entry[i].media$thumbnail.url;
+                } catch (exeption) {
+                    var d = "https://3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s72-c/nth.png"
+                }
+
+                listPost.push({
+                    title: c,
+                    href: b,
+                    thumb: d
+                })
+            }
+        };
+    }
+
+    $.ajax({
+        url: "https://www.niemstyle.com/feeds/posts/default",
+        type: "GET",
+        data: {
+            "alt": "json",
+            "max-results": 150,
+        },
+        dataType: "jsonp",
+        jsonpCallback: "getData",
+    })
+
+    $(".ls-input").keyup(function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            var input = $(".ls-input").val();
+            if (input.length > 0) {
+                $(".ls-results").show().empty();
+                for (var i = 0; i < listPost.length; i++) {
+                    var a = (listPost[i].title).indexOf(input);
+                    if (a != -1) {
+                        $(".ls-results").append("<div class='ls-item'><div class='ls-thumb'><a href='" + listPost[i].href + "'><img src='" + listPost[i].thumb + "'/></a></div><div class='ls-title'><a href='" + listPost[i].href + "'>" + listPost[i].title.substr(0, a) + "<b>" + listPost[i].title.substr(a, input.length) + "</b>" + listPost[i].title.substr(a + input.length) + "</a></div></div>");
+                    }
+                };
+            } else {
+                $(".ls-results").hide().empty();
+            }
+        }, 300);
+    });
+    </script>
+</body>
+
+</html>
