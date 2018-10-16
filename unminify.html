@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Unminify Code Online</title>
+    <meta content='width=device-width, initial-scale=1' name='viewport' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style type='text/css'>
+    body {
+        background-color: #f7f7f7;
+        padding: 2em 0 0;
+    }
+
+    textarea {
+        min-height: 40em;
+        font-size: 15px
+    }
+
+    .copyright-container {
+        margin: 20px 0;
+        font-size: 16px
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h2><strong>Input</strong></h2>
+                <form class="form-group">
+                    <textarea id="textarea" name="textarea" class="form-control" autofocus="" placeholder="Paste JS, CSS, HTML or XML Code to unminify/format..."></textarea>
+                </form>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h2><strong>Output</strong></h2>
+                <form class="form-group">
+                    <textarea id="output" class="form-control" readonly=""></textarea>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a class="btn btn-danger" id="erase"><i class="glyphicon glyphicon-remove"></i> Clear</a>
+                <a class="btn btn-success" id="copy"><i class="glyphicon glyphicon-paste"></i> Copy</a>
+            </div>
+        </div>
+        <div class="copyright-container">
+            <p class="text-center">Powered by <a href="https://getbootstrap.com/">Bootstrap</a> & <a href="http://jsbeautifier.org/">JS Beautify</a></p>
+        </div>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/js-beautify/1.7.5/beautify.min.js'></script>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/js-beautify/1.7.5/beautify-css.min.js'></script>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/js-beautify/1.7.5/beautify-html.min.js'></script>
+        <script type="text/javascript">
+        function isCss(a) {
+            if (/\w+\s*?\{[\s\S]+?\}/.test(a) && !/<(style).*?>[\s\S]+?<\/\1>/.test(a)) {
+                return true
+            }
+        }
+
+        function isJs(a) {
+            if ((/function\s*?\w+\s*?\(.*?\)\s*?\{[\s\S]+?\}/.test(a) || /var\s*?\w+\s*?\=/.test(a)) && !/<(script).*?>[\s\S]+?<\/\1>/.test(a)) {
+                return true
+            }
+        }
+
+        function isHtml(a) {
+            if (/<(\w+).*?>[\s\S]+?<\/\1>/.test(a)) {
+                return true
+            }
+        }
+
+        document.getElementById("textarea").addEventListener("keyup", function() {
+            var a = this.value;
+            if (isCss(a) && !isJs(a)) {
+                a = css_beautify(a)
+            } else if (isJs(a)) {
+                a = js_beautify(a)
+            } else if (isHtml(a)) {
+                a = html_beautify(a)
+            } else {
+                a = html_beautify(a)
+            }
+            document.getElementById("output").value = a;
+        })
+
+        document.getElementById("copy").addEventListener("click", function() {
+            var a = document.getElementById("textarea");
+            a.select();
+            try {
+                var b = document.execCommand('copy');
+            } catch (err) {
+                alert('Oops, unable to copy !')
+            }
+        })
+
+        document.getElementById("erase").addEventListener("click", function() {
+            var a = document.getElementById("textarea");
+            var b = document.getElementById("output");
+            a.value = "";
+            b.value = "";
+            a.focus();
+        })
+        </script>
+</body>
+
+</html>
