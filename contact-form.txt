@@ -1,0 +1,184 @@
+﻿<style type='text/css'>
+.BsdCntct {
+    float: none;
+    position: relative;
+    margin-bottom: 44px;
+    margin-right: 9px
+}
+
+.BsdCntct input,
+.BsdCntct textarea {
+    font-size: 14px;
+    padding: 14px 0;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd
+}
+
+.BsdCntct input:focus,
+.BsdCntct textarea:focus {
+    outline: 0
+}
+
+.BsdCntct label {
+    color: #111;
+    font-size: 15px;
+    font-weight: 400;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 9px;
+    transition: .2s ease all
+}
+
+.barbsd {
+    position: relative;
+    display: block;
+    width: 100%
+}
+
+.barbsd:after,
+.barbsd:before {
+    content: '';
+    height: 1px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #0C0;
+    transition: .2s ease all
+}
+
+.barbsd:before {
+    left: 50%
+}
+
+.barbsd:after {
+    right: 50%
+}
+
+.BsdCntct input:focus~.barbsd:after,
+.BsdCntct input:focus~.barbsd:before,
+.BsdCntct textarea:focus~.barbsd:after,
+.BsdCntct textarea:focus~.barbsd:before {
+    width: 50%
+}
+
+.lightbsd {
+    position: absolute;
+    height: 50%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: .5
+}
+
+.BsdCntct input:focus~label,
+.BsdCntct input:valid~label,
+.BsdCntct textarea:focus~label,
+.BsdCntct textarea:valid~label {
+    top: -19px;
+    font-size: 12px;
+    color: #0C0
+}
+
+input#ContactForm1_contact-form-email-message {
+    height: 150px
+}
+
+input#ContactForm1_contact-form-reset,
+input#ContactForm1_contact-form-submit {
+    color: #fff !important;
+    background: #0C0;
+    padding: 14px 25px;
+    border-radius: 4px;
+    border: none;
+    outline: 0;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    text-transform: uppercase;
+    float: left;
+    font-weight: 700;
+    font-size: 14px;
+    margin: 10px 5px 0 0
+}
+
+input#ContactForm1_contact-form-reset:hover,
+input#ContactForm1_contact-form-submit:hover {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19)
+}
+
+#ContactForm1_contact-form-error-message {
+    float: right;
+    background: #008E00;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 3px
+}
+
+#ContactForm1_contact-form-success-message {
+    float: right;
+    background: #357A37;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 3px
+}
+</style>
+
+<form name="contact-form">
+<div class="BsdCntct">
+<input class="validate" id="ContactForm1_contact-form-name" name="name" required="" type="text" value="" />
+        <span class="lightbsd"></span>
+        <span class="barbsd"></span>
+        <label><i class="fa fa-user"></i> Name</label>
+    </div>
+<div class="BsdCntct">
+<input class="validate" id="ContactForm1_contact-form-email" name="email" required="" type="email" value="" />
+        <span class="lightbsd"></span>
+        <span class="barbsd"></span>
+        <label><i class="fa fa-envelope-o"></i> Email</label>
+    </div>
+<div class="BsdCntct">
+<textarea class="validate" cols="25" id="ContactForm1_contact-form-email-message" name="email-message" required="" rows="5"></textarea>
+        <span class="lightbsd"></span>
+        <span class="barbsd"></span>
+        <label><i class="fa fa-microphone"></i> Message</label>
+    </div>
+<input id="ContactForm1_contact-form-submit" type="button" value="Send" />
+    <input id="ContactForm1_contact-form-reset" type="reset" value="Clear" />
+    <br />
+<div id="ContactForm1_contact-form-error-message">
+</div>
+<div id="ContactForm1_contact-form-success-message">
+</div>
+</form>
+
+<script src="https://www.blogger.com/static/v1/widgets/199156504-widgets.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) {
+    window['blogger_templates_experiment_id'] = "templatesV1";
+    window['blogger_blog_id'] = 'id_blog';
+    BLOG_attachCsiOnload('');
+}
+_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3did_blog', 'url_blog', 'id_blog');
+_WidgetManager._RegisterWidget('_ContactFormView', new _WidgetInfo('ContactForm1', 'footer1', null, document.getElementById('ContactForm1'), {
+    'contactFormMessageSendingMsg': 'Sending...',
+    'contactFormMessageSentMsg': 'Your message has been sent.',
+    'contactFormMessageNotSentMsg': 'Message could not be sent. Please try again later.',
+    'contactFormInvalidEmailMsg': 'A valid email address is required.',
+    'contactFormEmptyMessageMsg': 'Message field cannot be empty.',
+    'title': 'Contact Form',
+    'blogId': 'id_blog',
+    'contactFormNameMsg': 'Name',
+    'contactFormEmailMsg': 'Email',
+    'contactFormMessageMsg': 'Message',
+    'contactFormSendMsg': 'Send',
+    'submitUrl': 'https://www.blogger.com/contact-form.do'
+}, 'displayModeFull'));
+//]]>
+</script>
