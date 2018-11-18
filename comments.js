@@ -1930,7 +1930,13 @@ function Ayb(a){var b,c,d;d=a.d;for(b=a,c=a.e;c;c=c.e){c.g==b&&(d+=c.d+c.i);b=c}
 function tib(a){var b,c,d,e,f;e=a.a.Nc();f=e.d;d=e.c;b=e.a;c=e.b;return new Rrb(f,d,b,c)}
 function Lmb(a){var b;if(a.d==0||a.d>a.c.fg()){return hmb}else{b=a.d-1;return a.c.ag(b)}}
 function Uzb(a,b){var c;c=a.b;if(c.a.H(b)){return false}rN(c,b);SAb(a.j,a,b);return true}
-function sh(b){return function(){try{return th(b,this,arguments)}catch(){}}}
+function sh(b) {
+    return function() {
+        try {
+            return th(b, this, arguments)
+        } catch (a) {}
+    }
+}
 function wJ(b,a){if(a==null)return false;return b==a||b.toLowerCase()==a.toLowerCase()}
 function gfb(a,b){return !a.a?null:GO((!a.a&&(a.a=new PO,a.b=(WL(),new qM(a.a))),a.a),b)}
 function Zb(a){return !a.e?(a.e=new P0(!a.b?(a.b=new c0(new Td,new Vd,new Xd)):a.b)):a.e}
