@@ -162,10 +162,10 @@ input#ContactForm1_contact-form-submit:hover {
 //<![CDATA[
 if (typeof(BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) {
     window['blogger_templates_experiment_id'] = "templatesV1";
-    window['blogger_blog_id'] = 'id_blog';
+    window['blogger_blog_id'] = '8256370320146498427';
     BLOG_attachCsiOnload('');
 }
-_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3did_blog', 'url_blog', 'id_blog');
+_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d8256370320146498427', document.location.origin , '8256370320146498427');
 _WidgetManager._RegisterWidget('_ContactFormView', new _WidgetInfo('ContactForm1', 'footer1', null, document.getElementById('ContactForm1'), {
     'contactFormMessageSendingMsg': 'Sending...',
     'contactFormMessageSentMsg': 'Your message has been sent.',
@@ -173,7 +173,7 @@ _WidgetManager._RegisterWidget('_ContactFormView', new _WidgetInfo('ContactForm1
     'contactFormInvalidEmailMsg': 'A valid email address is required.',
     'contactFormEmptyMessageMsg': 'Message field cannot be empty.',
     'title': 'Contact Form',
-    'blogId': 'id_blog',
+    'blogId': '8256370320146498427',
     'contactFormNameMsg': 'Name',
     'contactFormEmailMsg': 'Email',
     'contactFormMessageMsg': 'Message',
