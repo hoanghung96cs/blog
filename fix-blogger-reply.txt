@@ -8,16 +8,18 @@ Tìm đến thẻ <b:includable id='threaded_comment_js' var='post'> và thay to
 
 <script type='text/javascript'>//<![CDATA[
 $(function() {
-    const t = $("#comment-editor-src").attr("href");
-    $(".comment-reply").each(function() {
-        var e = $(this);
-        e.on("click", function(n) {
-            $(".comment-actions").show(), n.preventDefault();
-            let r = e.parents("li").attr("id").substr(1),
-                c = t.split("?");
-            $("#comment-editor")[0].src = c[0] + "?parentID=" + r + "&" + c[1], e.parent().hide(), e.parents("li").append($(".comment-form")[0])
-        })
+  const t = $("#comment-editor-src").attr("href");
+  $(".comment-form").append('<a class="cancel-comment" style="font-family:Roboto,sans-serif;font-weight:700;font-size:12px;color:#ff0000;cursor:pointer;">CANCEL</a>'), $(".cancel-comment").hide(), $(".comment-reply").each(function() {
+    var e = $(this);
+    e.on("click", function(n) {
+      $(".comment-actions,.cancel-comment").show(), n.preventDefault();
+      let o = e.parents("li").attr("id").substr(1),
+        c = t.split("?");
+      $("#comment-editor")[0].src = c[0] + "?parentID=" + o + "&" + c[1], e.parent().hide(), e.parents("li").append($(".comment-form")[0])
     })
+  }), $(".cancel-comment").on("click", function() {
+    $("#comment-editor")[0].src = t, $(".comments-content").before($(".comment-form")[0]), $(this).hide()
+  })
 });
 //]]></script>
 
@@ -27,15 +29,17 @@ Tìm đến thẻ <b:includable id='threadedCommentJs' var='post'> và thay toà
 
 <script type='text/javascript'>//<![CDATA[
 $(function() {
-    const t = $("#comment-editor-src").attr("href");
-    $("a[o='r']").each(function() {
-        var n = $(this);
-        n.on("click", function(e) {
-            $(".comment-actions").show(), e.preventDefault();
-            let o = n.parents(".comment-block").attr("id").substr(1),
-                c = t.split("?");
-            $("#comment-editor")[0].src = c[0] + "?parentID=" + o + "&" + c[1], n.parent().hide(), n.parents("li").append($(".comment-form")[0])
-        })
+  const t = $("#comment-editor-src").attr("href");
+  $(".comment-form").append('<a class="cancel-comment" style="font-family:Roboto,sans-serif;font-weight:700;font-size:12px;color:#ff0000;cursor:pointer;">CANCEL</a>'), $(".cancel-comment").hide(), $("a[o='r']").each(function() {
+    var e = $(this);
+    e.on("click", function(n) {
+      $(".comment-actions,.cancel-comment").show(), n.preventDefault();
+      let o = e.parents(".comment-block").attr("id").substr(1),
+        c = t.split("?");
+      $("#comment-editor")[0].src = c[0] + "?parentID=" + o + "&" + c[1], e.parent().hide(), e.parents("li").append($(".comment-form")[0])
     })
+  }), $(".cancel-comment").on("click", function() {
+    $("#comment-editor")[0].src = t, $(".comments-content").before($(".comment-form")[0]), $(this).hide()
+  })
 });
 //]]></script>
