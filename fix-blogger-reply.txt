@@ -25,7 +25,7 @@ $(function() {
 
 Tìm đến thẻ <b:includable id='threadedCommentJs' var='post'> và thay toàn bộ nội dung bên trong nó thành
 
-<script>//<![CDATA[
+<script type='text/javascript'>//<![CDATA[
 $(function() {
     const t = $("#comment-editor-src").attr("href");
     $("a[o='r']").each(function() {
@@ -39,5 +39,3 @@ $(function() {
     })
 });
 //]]></script>
-
-
