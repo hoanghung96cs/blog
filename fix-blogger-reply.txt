@@ -1,0 +1,43 @@
+﻿* Tích hợp jQuery nếu blog chưa có: dán sau thẻ <head>
+
+<script src='//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js' type='text/javascript'></script>
+
+1. Blog1 version 1
+
+Tìm đến thẻ <b:includable id='threaded_comment_js' var='post'> và thay toàn bộ nội dung bên trong nó thành
+
+<script type='text/javascript'>//<![CDATA[
+$(function() {
+    const t = $("#comment-editor-src").attr("href");
+    $(".comment-reply").each(function() {
+        var e = $(this);
+        e.on("click", function(n) {
+            $(".comment-actions").show(), n.preventDefault();
+            let r = e.parents("li").attr("id").substr(1),
+                c = t.split("?");
+            $("#comment-editor")[0].src = c[0] + "?parentID=" + r + "&" + c[1], e.parent().hide(), e.parents("li").append($(".comment-form")[0])
+        })
+    })
+});
+//]]></script>
+
+2. Blog1 version 2
+
+Tìm đến thẻ <b:includable id='threadedCommentJs' var='post'> và thay toàn bộ nội dung bên trong nó thành
+
+<script>//<![CDATA[
+$(function() {
+    const t = $("#comment-editor-src").attr("href");
+    $("a[o='r']").each(function() {
+        var n = $(this);
+        n.on("click", function(e) {
+            $(".comment-actions").show(), e.preventDefault();
+            let o = n.parents(".comment-block").attr("id").substr(1),
+                c = t.split("?");
+            $("#comment-editor")[0].src = c[0] + "?parentID=" + o + "&" + c[1], n.parent().hide(), n.parents("li").append($(".comment-form")[0])
+        })
+    })
+});
+//]]></script>
+
+
