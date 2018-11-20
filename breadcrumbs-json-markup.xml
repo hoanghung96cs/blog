@@ -1,0 +1,42 @@
+﻿Triển khai cấu trúc Breadcrumbs cho blogger áp dụng cho cả widget blog1 v1 và blog1 v2 (valid với cả bài viết có nhiều labels)
+
+Xem mẫu tại: https://developers.google.com/search/docs/data-types/breadcrumb
+
+1. Đăng kí mới 1 thẻ postBreadcrumbs với nội dung như sau
+
+<b:includable id='postBreadcrumbs' var='post'>
+<script type='application/ld+json'>
+{
+  &quot;@context&quot;: &quot;http://schema.org&quot;,
+  &quot;@type&quot;: &quot;BreadcrumbList&quot;,
+  &quot;itemListElement&quot;: [{
+    &quot;@type&quot;: &quot;ListItem&quot;,
+    &quot;position&quot;: 1,
+    &quot;item&quot;: {
+      &quot;name&quot;: &quot;<data:messages.home/>&quot;,
+      &quot;@id&quot;: &quot;<data:blog.homepageUrl.jsonEscaped/>&quot;
+    }
+  }<b:loop index='i' values='data:post.labels' var='label'>,{
+    &quot;@type&quot;: &quot;ListItem&quot;,
+    &quot;position&quot;: <b:eval expr='data:i + 2'/>,
+    &quot;item&quot;: {
+      &quot;name&quot;: &quot;<data:label.name.jsonEscaped/>&quot;,
+      &quot;@id&quot;: &quot;<data:label.url.jsonEscaped/>&quot;
+    }
+  }</b:loop>,{
+    &quot;@type&quot;: &quot;ListItem&quot;,
+    &quot;position&quot;: <b:eval expr='data:post.labels.length + 2'/>,
+    &quot;item&quot;: {
+      &quot;name&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
+      &quot;@id&quot;: &quot;<data:post.url.jsonEscaped/>&quot;
+    }
+  }]
+}
+</script>
+</b:includable>
+
+2. Gọi hiển thị trong <b:includable id='main' var='this'> hoặc <b:includable id='main'>
+
+<b:include cond='data:view.isPost' data='post' name='postBreadcrumbs'/>
+
+#by Hung1001
