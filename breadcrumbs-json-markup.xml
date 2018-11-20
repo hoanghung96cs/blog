@@ -2,7 +2,9 @@
 
 Xem mẫu tại: https://developers.google.com/search/docs/data-types/breadcrumb
 
-1. Đăng kí mới 1 thẻ postBreadcrumbs với nội dung như sau
+1. Xóa toàn bộ dữ liệu liên quan của breadcrumbs cũ
+
+2. Đăng kí mới 1 thẻ postBreadcrumbs với nội dung như sau
 
 <b:includable id='postBreadcrumbs' var='post'>
 <script type='application/ld+json'>
@@ -35,7 +37,7 @@ Xem mẫu tại: https://developers.google.com/search/docs/data-types/breadcrumb
 </script>
 </b:includable>
 
-2. Gọi hiển thị trong <b:includable id='main' var='this'> hoặc <b:includable id='main'>
+3. Gọi hiển thị trong <b:includable id='main' var='this'> hoặc <b:includable id='main'>
 
 <b:include cond='data:view.isPost' data='post' name='postBreadcrumbs'/>
 
