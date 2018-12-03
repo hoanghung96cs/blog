@@ -37,7 +37,9 @@ Xem mẫu tại: https://developers.google.com/search/docs/data-types/breadcrumb
 </script>
 </b:includable>
 
-3. Gọi hiển thị trong <b:includable id='main' var='this'> hoặc <b:includable id='main'>
+3. Gọi hiển thị 
+
+Chèn code ngay dưới thẻ <b:includable id='post' var='post'>
 
 <b:include cond='data:view.isPost' data='post' name='postBreadcrumbs'/>
 
