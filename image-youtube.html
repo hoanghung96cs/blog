@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Regex detect url Image or Youtube</title>
+    <style type="text/css">
+    .embed {
+        position: relative;
+        padding-bottom: 56.25%;
+        max-width: 100%;
+    }
+
+    .embed iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%
+    }
+
+    /* you can use this to break line and center image  */
+    img {
+        margin: 15px auto;
+        display: block;
+        width: 70%;
+    }
+
+    /* for demo */
+    body {
+        font:  normal normal 400 16px/24px Arial, sans-serif;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>Comment 1</h2>
+    <div class="comment-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris https://4.bp.blogspot.com/-0MzUAFC4YXg/WwREzVd5eJI/AAAAAAAAs9A/IscdBuIDN5s0bUyde2fCO9JX0UYVXPuRwCKgBGAs/s1600/Blog-v2.jpg nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+    </div>
+    <h2>Comment 2</h2>
+    <div class="comment-content">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. <b>This is image</b> https://2.bp.blogspot.com/-yHBqCj4CsZ0/WvDEaV5BewI/AAAAAAAAr4E/1vBVvbLSYv4To8wHtuGC22XqnO6TWszkwCKgBGAs/s1600/b-message.jpg Expedita esse architecto voluptate quos necessitatibus ea nobis iure vel atque omnis <b>and this is youtube video</b> https://www.youtube.com/watch?v=MhQKe-aERsU Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, nostrum veniam itaque! Nam molestiae dolores maxime ullam iure, excepturi repellendus.
+    </div>
+    <script type="text/javascript">
+    const img = /\b(http(?:s)?:\/\/\S+(?:png|jpe?g|gif|bmp|svg|tif)\S*)\b/gi,
+        ytb = /(http:|https:)?\/\/(www\.)?(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?/gi;
+    for (var cmts = document.getElementsByClassName("comment-content"), i = 0; i < cmts.length; i++) {
+        var a = cmts[i].innerHTML;
+        if (img.test(a))
+            for (var c = a.match(img), j = 0; j < c.length; j++) a = a.replace(c[j], "<img src='" + c[j] + "'/>");
+        if (ytb.test(a))
+            for (var d = a.match(ytb), k = 0; k < d.length; k++) a = a.replace(d[k], "<div class='embed'><iframe src='https://www.youtube.com/embed/" + d[k].split("=")[1] + "' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen=''></iframe></div>");
+        cmts[i].innerHTML = a
+    }
+    </script>
+</body>
+
+</html>
