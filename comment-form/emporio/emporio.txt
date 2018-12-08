@@ -1,0 +1,181 @@
+﻿1. Add b:templateUrl HTML Attribute
+
+<html b:templateUrl='vegeclub.xml' ...>
+
+2. Define in b:skin
+
+/*
+
+<!-- Variable definitions -->
+
+<Variable name="keycolor" description="Main Color" type="color" default="#8abc0d" value="#729c0b"/>
+<Variable name="startSide" description="Start side in blog language" type="automatic" default="left" hideEditor="true" />
+<Variable name="endSide" description="End side in blog language" type="automatic" default="right" hideEditor="true" />
+
+<Variable name="generalFont" description="General fallback font" type="font" default="400 16px Ubuntu, sans-serif" hideEditor="true" value="400 16px Ubuntu, sans-serif"/>
+<Variable name="generalFontLato" description="General fallback font, Lato" type="font" default="400 16px Lato, sans-serif" hideEditor="true" value="400 16px Lato, sans-serif"/>
+<Variable name="blogTitleFont" description="Main blog title font" type="font" default="500 62px Ubuntu, sans-serif" hideEditor="true" value="500 62px Ubuntu, sans-serif"/>
+<Variable name="blogTitleFontLato" description="Main blog title font, Lato" type="font" default="700 62px Lato, sans-serif" hideEditor="true" value="700 62px Lato, sans-serif"/>
+<Variable name="blogTitleFontMerriweather" description="Main blog title font, Merriweather" type="font" default="700 62px Merriweather, Georgia, serif" hideEditor="true" value="700 62px Merriweather, Georgia, serif"/>
+<Variable name="blogCollapsedTitleFont" description="Collapsed blog title font" type="font" default="500 36px Ubuntu, sans-serif" hideEditor="true" value="500 36px Ubuntu, sans-serif"/>
+<Variable name="blogCollapsedTitleFontLato" description="Collapsed blog title font, Lato" type="font" default="700 36px Lato, sans-serif" hideEditor="true" value="700 36px Lato, sans-serif"/>
+<Variable name="blogCollapsedTitleFontMerriweather" description="Collapsed blog title font, Merriweather" type="font" default="700 36px Merriweather, Georgia, serif" hideEditor="true" value="700 36px Merriweather, Georgia, serif"/>
+<Variable name="blogDescriptionFont" description="Main blog description font" type="font" default="italic 300 14px Merriweather, Georgia, serif" hideEditor="true" value="italic 300 14px Merriweather, Georgia, serif"/>
+<Variable name="headerItemFont" description="Header item font" type="font" default="700 12px Ubuntu, sans-serif" hideEditor="true" value="700 12px Ubuntu, sans-serif"/>
+<Variable name="headerItemFontLato" description="Header item font, Lato" type="font" default="700 12px Lato, sans-serif" hideEditor="true" value="700 12px Lato, sans-serif"/>
+<Variable name="textButtonFont" description="Text button font" type="font" default="500 12px Ubuntu, sans-serif" hideEditor="true" value="500 12px Ubuntu, sans-serif"/>
+<Variable name="textButtonFontLato" description="Text button font, Lato" type="font" default="500 12px Lato, sans-serif" hideEditor="true" value="500 12px Lato, sans-serif"/>
+<Variable name="searchFont" description="Search font" type="font" default="400 16px Merriweather, Georgia, serif" hideEditor="true" value="400 16px Merriweather, Georgia, serif"/>
+<Variable name="searchPlaceholderFont" description="Search placeholder" type="font" default="italic 400 15px Merriweather, Georgia, serif" hideEditor="true" value="italic 400 15px Merriweather, Georgia, serif"/>
+<Variable name="sidebarTitleFont" description="Sidebar title font" type="font" default="500 16px Ubuntu, sans-serif" hideEditor="true" value="500 16px Ubuntu, sans-serif"/>
+<Variable name="sidebarTitleFontLato" description="Sidebar title font, Lato" type="font" default="500 16px Lato, sans-serif" hideEditor="true" value="500 16px Lato, sans-serif"/>
+<Variable name="sidebarTitleFontMerriweather" description="Sidebar title font, Merriweather" type="font" default="700 16px Merriweather, Georgia, sans-serif" hideEditor="true" value="700 16px Merriweather, Georgia, sans-serif"/>
+<Variable name="sidebarLinkFont" description="Sidebar link font" type="font" default="400 14px Merriweather, Georgia, serif" hideEditor="true" value="400 14px Merriweather, Georgia, serif"/>
+<Variable name="sidebarPostTitleFont" description="Sidebar post title font" type="font" default="500 14px Ubuntu, sans-serif" hideEditor="true" value="500 14px Ubuntu, sans-serif"/>
+<Variable name="sidebarPostTitleFontLato" description="Sidebar post title font, Lato" type="font" default="500 14px Lato, sans-serif" hideEditor="true" value="500 14px Lato, sans-serif"/>
+<Variable name="sidebarPostFont" description="Sidebar post font" type="font" default="italic 400 14px Merriweather, Georgia, serif" hideEditor="true" value="italic 400 14px Merriweather, Georgia, serif"/>
+<Variable name="titleFont" description="Title font" type="font" default="500 24px Ubuntu, sans-serif" hideEditor="true" value="500 24px Ubuntu, sans-serif"/>
+<Variable name="titleFontLato" description="Title font, Lato" type="font" default="900 24px Lato, sans-serif" hideEditor="true" value="900 24px Lato, sans-serif"/>
+<Variable name="titleFontMerriweather" description="Title font, Merriweather" type="font" default="900 24px Merriweather, Georgia, serif" hideEditor="true" value="900 24px Merriweather, Georgia, serif"/>
+<Variable name="bylineFont" description="Byline font" type="font" default="italic 400 12px Merriweather, Georgia, serif" hideEditor="true" value="italic 400 12px Merriweather, Georgia, serif"/>
+<Variable name="postFilterFont" description="Filter font" type="font" default="italic 400 18px Merriweather, Georgia, serif" hideEditor="true" value="italic 400 18px Merriweather, Georgia, serif"/>
+<Variable name="labelsFont" description="Labels font" type="font" default="500 10.5px Ubuntu, sans-serif" hideEditor="true" value="500 10.5px Ubuntu, sans-serif"/>
+<Variable name="labelsFontLato" description="Labels font, Lato" type="font" default="500 10px Lato, sans-serif" hideEditor="true" value="500 10px Lato, sans-serif"/>
+<Variable name="sharingFont" description="Sharing font" type="font" default="400 14px Ubuntu, sans-serif" hideEditor="true" value="400 14px Ubuntu, sans-serif"/>
+<Variable name="sharingFontLato" description="Sharing font, Lato" type="font" default="400 14px Lato, sans-serif" hideEditor="true" value="400 14px Lato, sans-serif"/>
+<Variable name="bodyFont" description="Post body font" type="font" default="400 16px Merriweather, Georgia, serif" hideEditor="true" value="400 16px Merriweather, Georgia, serif"/>
+<Variable name="bodyLineHeight" description="Line height of body text" type="length" default="32px" hideEditor="true" value="32px"/>
+<Variable name="bodyFontSmall" description="Post body font (small)" type="font" default="400 14px Merriweather, Georgia, serif" hideEditor="true" value="400 14px Merriweather, Georgia, serif"/>
+<Variable name="bodyLineHeightSmall" description="Line height of body text (small)" type="length" default="24px" hideEditor="true" value="24px"/>
+
+<Variable name="white" description="White" type="color" default="#fff" hideEditor="true" value="#ffffff"/>
+<Variable name="black50" description="Black 50" type="color" default="#fafafa" hideEditor="true" value="#fafafa"/>
+<Variable name="lightGray" description="Light gray" type="color" default="#f7f7f7" hideEditor="true" value="#f7f7f7"/>
+<Variable name="lightishGray" description="Lightish gray" type="color" default="#efefef" hideEditor="true" value="#efefef"/>
+<Variable name="black600" description="Black 600" type="color" default="#757575" hideEditor="true" value="#757575"/>
+<Variable name="darkishGray" description="Darkish gray" type="color" default="#535353" hideEditor="true" value="#535353"/>
+<Variable name="black800" description="Black 800 " type="color" default="#424242" hideEditor="true" value="#424242"/>
+<Variable name="black900" description="Black 900" type="color" default="#212121" hideEditor="true" value="#212121"/>
+<Variable name="offBlack" description="Off black" type="color" default="#1f1f1f" hideEditor="true" value="#1f1f1f"/>
+<Variable name="black" description="Black" type="color" default="#000" hideEditor="true" value="#000000"/>
+
+<Variable name="vegeGreen" description="Vege green keycolor" type="color" default="#729c0b" hideEditor="true" value="#729c0b"/>
+<Variable name="lime" description="Lime keycolor" type="color" default="#f4ff81" hideEditor="true" value="#f4ff81"/>
+<Variable name="blueGray" description="Blue-gray color" type="color" default="#607d8b" hideEditor="true" value="#607d8b"/>
+<Variable name="blueGrayDark" description="Blue-gray color (darkened)" type="color" default="#263238" hideEditor="true" value="#263238"/>
+<Variable name="beige" description="Beige-blue background color" type="color" default="#eed7c2" hideEditor="true" value="#eed7c2"/>
+<Variable name="beigeDark" description="Beige-blue accent color" type="color" default="#da7d5e" hideEditor="true" value="#da7d5e"/>
+<Variable name="beigeBlue" description="Beige-blue keycolor" type="color" default="#374561" hideEditor="true" value="#374561"/>
+<Variable name="aqua" description="Aqua keycolor" type="color" default="#18ffff" hideEditor="true" value="#18ffff"/>
+<Variable name="peach" description="Peach background" type="color" default="#f59b82" hideEditor="true" value="#f59b82"/>
+<Variable name="peachBright" description="Peach keycolor" type="color" default="#ee582e" hideEditor="true" value="#ee582e"/>
+<Variable name="peachDark" description="Peach background (darkened)" type="color" default="#e8937b" hideEditor="true" value="#e8937b"/>
+
+<Variable name="transpDark03" description="Transparent background (3%)" type="color" default="rgba(0, 0, 0, 0.03)" hideEditor="true" value="rgba(0, 0, 0, 0.03)"/>
+<Variable name="transpDark10" description="Transparent background (10%)" type="color" default="rgba(0, 0, 0, 0.1)" hideEditor="true" value="rgba(0, 0, 0, 0.1)"/>
+<Variable name="transpDark30" description="Transparent background (30%)" type="color" default="rgba(0, 0, 0, 0.3)" hideEditor="true" value="rgba(0, 0, 0, 0.3)"/>
+<Variable name="transpLight" description="Transparent background (light)" type="color" default="rgba(255, 255, 255, 0.3)" hideEditor="true" value="rgba(255, 255, 255, 0.3)"/>
+<Variable name="transpBlack" description="Transparent background (black)" type="color" default="rgba(0, 0, 0, 0.87)" hideEditor="true" value="rgba(0, 0, 0, 0.87)"/>
+
+<Group description="Body">
+  <Variable name="body.background.color" description="Body background color" type="color" default="#f7f7f7"  value="#f7f7f7"/>
+  <Variable name="body.background" description="Background" type="background" color="#f7f7f7" default="$(color) none repeat scroll top left"  value="$(color) none repeat scroll top left"/>
+  <Variable name="body.text.font" description="Font" type="font" default="$(generalFont)"  value="400 16px Ubuntu, sans-serif"/>
+  <Variable name="body.text.color" description="Color" type="color" default="#000000"  value="#000000"/>
+  <Variable name="body.link.color" description="Link color" type="color" default="$(keycolor)"  value="#729c0b"/>
+  <Variable name="body.link.visited.color" description="Visited Link Color" type="color" default="$(body.link.color)"  value="#729c0b"/>
+  <Variable name="body.link.hover.color" description="Link Hover Color" type="color" default="$(body.link.color)"  value="#729c0b"/>
+  <Variable name="body.button.font" description="Button font" type="font" default="$(textButtonFont)"  value="500 12px Ubuntu, sans-serif"/>
+  <Variable name="body.button.color" description="Button color" type="color" default="$(keycolor)"  value="#729c0b"/>
+</Group>
+
+<Group description="Blog title" selector="div.widget.Header">
+  <Variable name="blog.title.font" description="Title Font" type="font" default="$(blogTitleFont)"  value="500 62px Ubuntu, sans-serif"/>
+  <Variable name="blog.collapsed.title.font" description="Collapsed title font" type="font" default="$(blogCollapsedTitleFont)"  value="500 36px Ubuntu, sans-serif"/>
+  <Variable name="blog.collapsed.title.color" description="Collapsed title color" type="color" default="$(blog.title.color)"  value="#1f1f1f"/>
+  <Variable name="blog.title.color" description="Title color" type="color" default="#1f1f1f"  value="#1f1f1f"/>
+  <Variable name="header.background.color" description="Header bar color" type="color" default="#efefef"  value="#efefef"/>
+  <Variable name="header.icons.color" description="Header icons color" type="color" default="$(keycolor)"  value="#729c0b"/>
+  <Variable name="header.separator.color" description="Header separator color" type="color" default="rgba(0, 0, 0, 0.3)"  value="rgba(0, 0, 0, 0.3)"/>
+  <Variable name="blog.description.font" description="Description font" type="font" default="$(blogDescriptionFont)"  value="italic 300 14px Merriweather, Georgia, serif"/>
+  <Variable name="blog.description.color" description="Description Color" type="color" default="#1f1f1f"  value="#1f1f1f"/>
+</Group>
+
+<Group description="Tabs" selector="div.widget.PageList">
+  <Variable name="tabs.text.font" description="Font" type="font" default="$(headerItemFont)"  value="700 12px Ubuntu, sans-serif"/>
+  <Variable name="tabs.text.color" description="Text color" type="color" default="$(keycolor)"  value="#729c0b"/>
+  <Variable name="tabs.selected.color" description="Selected color" type="color" default="$(tabs.text.color)"  value="#729c0b"/>
+  <Variable name="tabs.background.color" description="Tabs background color" type="color" default="#fff"  value="#ffffff"/>
+</Group>
+
+<Group description="Posts" selector="div.widget.Blog">
+  <Variable name="posts.background.color" description="Post background color" type="color" default="#fff"  value="#ffffff"/>
+  <Variable name="posts.title.color" description="Post title color" type="color" default="#212121"  value="#212121"/>
+  <Variable name="posts.title.font" description="Post title font" type="font" default="$(titleFont)"  value="500 24px Ubuntu, sans-serif"/>
+  <Variable name="posts.byline.color" description="Post byline color" type="color" default="#757575"  value="#757575"/>
+  <Variable name="posts.byline.font" description="Post byline font" type="font" default="$(bylineFont)"  value="italic 400 12px Merriweather, Georgia, serif"/>
+  <Variable name="posts.text.font" description="Post text font" type="font" default="$(bodyFont)"  value="400 16px Merriweather, Georgia, serif"/>
+  <Variable name="posts.text.color" description="Post text color" type="color" default="$(body.text.color)"  value="#000000"/>
+  <Variable name="posts.text.lineHeight" description="Post text line height" min="10px" max="60px" type="length" default="$(bodyLineHeight)"  value="32px"/>
+  <Variable name="posts.snippet.text.font" description="Post snippet text font" type="font" default="$(bodyFontSmall)"  value="400 14px Merriweather, Georgia, serif"/>
+  <Variable name="posts.snippet.text.lineHeight" description="Post snippet text line height" min="10px" max="60px" type="length" default="$(bodyLineHeightSmall)"  value="24px"/>
+  <Variable name="posts.link.color" description="Post link color" type="color" default="$(body.link.color)"  value="#729c0b"/>
+  <Variable name="posts.icons.color" description="Post icons color" type="color" default="$(posts.link.color)"  value="#729c0b"/>
+  <Variable name="posts.border.radius" description="Post border radius" type="length" default="0px" min="0px" max="32px"  value="0px"/>
+  <Variable name="postFilter.background.color" description="Filter background color" type="color" default="$(keycolor)"  value="#729c0b"/>
+  <Variable name="postFilter.message.font" description="Filter text font" type="font" default="$(postFilterFont)"  value="italic 400 18px Merriweather, Georgia, serif"/>
+  <Variable name="postFilter.message.color" description="Filter text color" type="color" default="$(posts.background.color)"  value="#ffffff"/>
+  <Variable name="postFilter.message.link.color" description="Filter keyword color" type="color" default="$(postFilter.message.color)"  value="#ffffff"/>
+  <Variable name="labels.font" description="Label font size" type="font" default="$(labelsFont)"  value="500 10.5px Ubuntu, sans-serif"/>
+</Group>
+
+<Group description="Sharing" selector=".sharing">
+  <Variable name="sharing.background.color" description="Sharing background color" type="color" default="$(posts.background.color)"  value="#ffffff"/>
+  <Variable name="sharing.text.font" description="Sharing text font" type="font" default="$(sharingFont)"  value="400 14px Ubuntu, sans-serif"/>
+  <Variable name="sharing.text.color" description="Sharing text color" type="color" default="$(posts.text.color)"  value="#000000"/>
+  <Variable name="sharing.icons.color" description="Sharing icons color" type="color" default="$(posts.icons.color)"  value="#729c0b"/>
+</Group>
+
+<Group description="Blockquotes">
+  <Variable name="blockquote.color" description="Blockquote color" type="color" default="#424242"  value="#424242"/>
+  <Variable name="blockquote.font" description="Blockquote font" type="font" default="$(body.text.font)"  value="400 16px Ubuntu, sans-serif"/>
+</Group>
+
+<Group description="Pictures">
+  <Variable name="picture.caption.text.color" description="Caption text color" type="color" default="#424242"  value="#424242"/>
+  <Variable name="picture.caption.font" description="Caption font" type="font" default="$(body.text.font)"  value="400 16px Ubuntu, sans-serif"/>
+</Group>
+
+<Group description="Sidebar" selector="div.sidebar_feed">
+  <Variable name="sidebar.background.color" description="Background color" type="color" default="$(body.background.color)"  value="#f7f7f7"/>
+  <Variable name="sidebar.separator.color" description="Separator color" type="color" default="rgba(0, 0, 0, 0.12)"  value="rgba(0, 0, 0, 0.12)"/>
+  <Variable name="widget.title.font" description="Gadget title font" type="font" default="$(sidebarTitleFont)"  value="500 16px Ubuntu, sans-serif"/>
+  <Variable name="widget.title.color" description="Gadget title color" type="color" default="$(body.text.color)"  value="#000000"/>
+  <Variable name="sidebar.icons.color" description="Sidebar icons color" type="color" default="$(keycolor)"  value="#729c0b"/>
+  <Variable name="sidebar.link.font" description="Link font" type="font" default="$(sidebarLinkFont)"  value="400 14px Merriweather, Georgia, serif"/>
+  <Variable name="sidebar.link.color" description="Link color" type="color" default="$(keycolor)"  value="#729c0b"/>
+  <Variable name="sidebar.posts.title.font" description="Post title font" type="font" default="$(sidebarPostTitleFont)"  value="500 14px Ubuntu, sans-serif"/>
+  <Variable name="sidebar.posts.text.font" description="Post text font" type="font" default="$(sidebarPostFont)"  value="italic 400 14px Merriweather, Georgia, serif"/>
+  <Variable name="sidebar.posts.text.color" description="Post text color" type="color" default="#535353"  value="#535353"/>
+</Group>
+
+<Group description="Search bar" selector="div.search">
+  <Variable name="search.text.color" description="Text color" type="color" default="$(offBlack)"  value="#1f1f1f"/>
+  <Variable name="search.icon.color" description="Icon color" type="color" default="rgba(0, 0, 0, 0.38)"  value="rgba(0, 0, 0, 0.38)"/>
+  <Variable name="search.font" description="Text font" type="font" default="$(searchFont)"  value="400 16px Merriweather, Georgia, serif"/>
+  <Variable name="search.placeholder.font" description="Placeholder text font" type="font" default="$(searchPlaceholderFont)"  value="italic 400 15px Merriweather, Georgia, serif"/>
+  <Variable name="search.placeholder.color" description="Placeholder text color" type="font" default="rgba(0, 0, 0, 0.38)"  value="rgba(0, 0, 0, 0.38)"/>
+  <Variable name="search.background.color" description="Background color" type="color" default="rgba(0, 0, 0, 0.03)"  value="rgba(0, 0, 0, 0.03)"/>
+</Group>
+
+<Group description="Attribution" selector=".widget.Attribution">
+  <Variable name="attribution.text.color" description="Attribution text color" type="color" default="$(body.text.color)"  value="#000000"/>
+  <Variable name="attribution.link.color" description="Attribution link color" type="color" default="$(body.link.color)"  value="#729c0b"/>
+  <Variable name="attribution.icon.color" description="Attribution icon color" type="color" default="#757575" hideEditor="true"  value="#757575"/>
+</Group>
+
+<Group description="Widths">
+  <Variable name="sidebar.width" description="Sidebar width" type="length" min="100px" max="1000px" default="280px"  value="280px"/>
+  <Variable name="posts.width.stream" description="Post width (stream)" type="length" min="100px" max="1000px" default="385px"  value="385px"/>
+</Group>
+ */
