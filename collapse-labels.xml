@@ -85,7 +85,7 @@
 .list-label-collapse .list_label{display:block}
 .list-label-collapse .collapsible svg.chevron-up{display:block}
 .list-label-collapse .collapsible svg.chevron-down{display:none}
-.list-label-collapse .collapsible svg{height:24px;width:24px;min-width:24px;fill:hsl(0,0%,53.3%);position:absolute;right:-2px;top:0}
+.list-label-collapse .collapsible svg{height:24px;width:24px;fill:hsl(0,0%,53.3%);position:absolute;right:-2px;top:0}
 .list-label-collapse ul{margin-left:25px;margin-top:10px}
 .list-label-collapse ul li{list-style-type:disc;font-size:15px}
 .list-label-collapse ul li a{padding:2px 0;display:block;color:#000}
