@@ -1,62 +1,63 @@
-﻿<b:widget id='Label1' locked='false' title='Labels' type='Label' visible='true'>
-         <b:widget-settings>
-           <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
-           <b:widget-setting name='display'>LIST</b:widget-setting>
-           <b:widget-setting name='selectedLabelsList'/>
-           <b:widget-setting name='showType'>ALL</b:widget-setting>
-           <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
-         </b:widget-settings>
+<b:widget id='Label1' locked='false' title='Categories' type='Label' visible='true'>
+	<b:widget-settings>
+		<b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+		<b:widget-setting name='display'>LIST</b:widget-setting>
+		<b:widget-setting name='selectedLabelsList'/>
+		<b:widget-setting name='showType'>ALL</b:widget-setting>
+		<b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+	</b:widget-settings>
 
-         <b:includable id='main' var='this'>
-            <b:include name='super.main'/>
-        </b:includable>
-
-         <b:includable id='cloud'>
-            <b:include data='{buttonClass: &quot;flat-button&quot;, items: data:this.labels,itemSet: &quot;labels&quot;,itemsMarkup: &quot;super.cloud&quot; }' name='extendableItems'/>
-        </b:includable>
-
-         <b:includable id='content'>
-  <div class='widget-content'>
-    <b:class expr:name='data:this.display + &quot;-label-widget-content&quot;'/>
-    <b:include cond='data:this.display == &quot;list&quot;' name='list'/>
-    <b:include cond='data:this.display == &quot;cloud&quot;' name='cloud'/>
-  </div>
+<b:includable id='main' var='this'>
+     <b:include name='super.main'/>
 </b:includable>
 
-         <b:includable id='child'>
-           <li>
-            <a expr:href='data:label.url' expr:title='data:label.name'>
-              <span class='label-name'><data:label.name/></span>
-              <b:if cond='data:this.showFreqNumbers'>
-              <span class='label-count'><data:label.count/></span>
-              </b:if>
-            </a>
-          </li>
-         </b:includable>
+<b:includable id='cloud'>
+   <b:include data='{buttonClass: &quot;flat-button&quot;, items: data:this.labels,itemSet: &quot;labels&quot;,itemsMarkup: &quot;super.cloud&quot; }' name='extendableItems'/>
+</b:includable>
 
-         <b:includable id='collapse'>
-          <span title='Thu gọn'>
-            <svg class='chevron-up'>
-              <use xlink:href='/responsive/sprite_v1_6.css.svg#ic_expand_less_black_24dp' xmlns:xlink='http://www.w3.org/1999/xlink'/>
-            </svg>
-          </span>
-          <span title='Mở rộng'>
-             <svg class='chevron-down'>
-               <use xlink:href='/responsive/sprite_v1_6.css.svg#ic_expand_more_black_24dp' xmlns:xlink='http://www.w3.org/1999/xlink'/>
+<b:includable id='content'>
+	<div class='widget-content'>
+		<b:class expr:name='data:this.display + &quot;-label-collapse&quot;'/>
+		<b:include cond='data:this.display == &quot;list&quot;' name='list'/>
+		<b:include cond='data:this.display == &quot;cloud&quot;' name='cloud'/>
+	</div>
+</b:includable>
+
+<b:includable id='child'>
+	<li>
+	    <a expr:href='data:label.url' expr:title='data:label.name'>
+	        <span class='label-name'><data:label.name/></span>
+		<b:if cond='data:this.showFreqNumbers'>
+		   <span class='label-count'><data:label.count/></span>
+		</b:if>
+	    </a>
+	</li>
+</b:includable>
+
+<b:includable id='collapse'>
+	<span title='Collapse'>
+	   <svg class='chevron-up'>
+	      <use xlink:href='/responsive/sprite_v1_6.css.svg#ic_expand_less_black_24dp' xmlns:xlink='http://www.w3.org/1999/xlink'/>
+	   </svg>
+	</span>
+	<span title='Expand'>
+	    <svg class='chevron-down'>
+                <use xlink:href='/responsive/sprite_v1_6.css.svg#ic_expand_more_black_24dp' xmlns:xlink='http://www.w3.org/1999/xlink'/>
              </svg>
-          </span>
-         </b:includable>
+	</span>
+</b:includable>
 
-         <b:includable id='list'>
+<b:includable id='list'>
+
 <div class='list_items'>
     <div class='collapsible list_1'>
-        <span class='title'>Adobe</span>
+        <span class='title'>Category 1</span>
         <b:include name='collapse' />
     </div>
     <div class='list_label list_1'>
         <ul>
             <b:loop values='data:labels' var='label'>
-               <b:include cond='data:label.name in ["adobe-2013","adobe-2014","adobe-2015","adobe-2015.5"]' name='child' />
+               <b:include cond='data:label.name in ["label-name-1","label-name-2"]' name='child' />
             </b:loop>
         </ul>
     </div>
@@ -64,19 +65,47 @@
 
 <div class='list_items'>
     <div class='collapsible list_2'>
-        <span class='title'>Blogger</span>
+        <span class='title'>Category 2</span>
         <b:include name='collapse' />
     </div>
     <div class='list_label list_2'>
         <ul>
             <b:loop values='data:labels' var='label'>
-               <b:include cond='data:label.name in ["blogger-data","blogger-template","blogging-tips","json-feed"]' name='child' />
+               <b:include cond='data:label.name in ["label-name-3","label-name-4"]' name='child' />
             </b:loop>
         </ul>
     </div>
-</div>  
-
+</div>
+  
 <!-- Write more -->
-</b:includable>
 
+<style type='text/css'>/*<![CDATA[*/
+.list-label-collapse .list_items{position:relative;margin-bottom:10px}
+.list-label-collapse .collapsible{display:block;cursor:pointer}
+.list-label-collapse .list_label{display:block}
+.list-label-collapse .collapsible svg.chevron-up{display:block}
+.list-label-collapse .collapsible svg.chevron-down{display:none}
+.list-label-collapse .collapsible svg{height:24px;width:24px;min-width:24px;fill:hsl(0,0%,53.3%);position:absolute;right:-2px;top:0}
+.list-label-collapse ul{margin-left:25px;margin-top:10px}
+.list-label-collapse ul li{list-style-type:disc;font-size:15px}
+.list-label-collapse ul li a{padding:2px 0;display:block;color:#000}
+.list-label-collapse ul li a{color:#000;transition:all 0.3s ease}
+.list-label-collapse ul li a:hover{color:#1116d9}
+.list-label-collapse .label-count{float:right;font-size:15px}
+.list-label-collapse .label-count::before{content:"("}
+.list-label-collapse .label-count::after{content:")"}
+/*]]>*/</style>
+
+<script src="//unpkg.com/jquery@3.3.1/dist/jquery.js" type="text/javascript"></script> <!-- Include jQuery if your template does not have -->
+<script type="text/javascript">//<![CDATA[
+for (var i = 1; i <= $(".list_items").length; i++) {
+  (function(i) {
+    $(".collapsible.list_" + i).on("click", function(e) {
+      e.preventDefault();
+      $(".list_label.list_" + i + ",.collapsible.list_" + i + " .chevron-up,.collapsible.list_" + i + " .chevron-down").slideToggle();
+    })
+  }(i));
+}
+//]]></script>
+</b:includable>
 </b:widget>
