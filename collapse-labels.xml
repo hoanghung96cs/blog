@@ -1,0 +1,82 @@
+﻿<b:widget id='Label1' locked='false' title='Labels' type='Label' visible='true'>
+         <b:widget-settings>
+           <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+           <b:widget-setting name='display'>LIST</b:widget-setting>
+           <b:widget-setting name='selectedLabelsList'/>
+           <b:widget-setting name='showType'>ALL</b:widget-setting>
+           <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+         </b:widget-settings>
+
+         <b:includable id='main' var='this'>
+            <b:include name='super.main'/>
+        </b:includable>
+
+         <b:includable id='cloud'>
+            <b:include data='{buttonClass: &quot;flat-button&quot;, items: data:this.labels,itemSet: &quot;labels&quot;,itemsMarkup: &quot;super.cloud&quot; }' name='extendableItems'/>
+        </b:includable>
+
+         <b:includable id='content'>
+  <div class='widget-content'>
+    <b:class expr:name='data:this.display + &quot;-label-widget-content&quot;'/>
+    <b:include cond='data:this.display == &quot;list&quot;' name='list'/>
+    <b:include cond='data:this.display == &quot;cloud&quot;' name='cloud'/>
+  </div>
+</b:includable>
+
+         <b:includable id='child'>
+           <li>
+            <a expr:href='data:label.url' expr:title='data:label.name'>
+              <span class='label-name'><data:label.name/></span>
+              <b:if cond='data:this.showFreqNumbers'>
+              <span class='label-count'><data:label.count/></span>
+              </b:if>
+            </a>
+          </li>
+         </b:includable>
+
+         <b:includable id='collapse'>
+          <span title='Thu gọn'>
+            <svg class='chevron-up'>
+              <use xlink:href='/responsive/sprite_v1_6.css.svg#ic_expand_less_black_24dp' xmlns:xlink='http://www.w3.org/1999/xlink'/>
+            </svg>
+          </span>
+          <span title='Mở rộng'>
+             <svg class='chevron-down'>
+               <use xlink:href='/responsive/sprite_v1_6.css.svg#ic_expand_more_black_24dp' xmlns:xlink='http://www.w3.org/1999/xlink'/>
+             </svg>
+          </span>
+         </b:includable>
+
+         <b:includable id='list'>
+<div class='list_items'>
+    <div class='collapsible list_1'>
+        <span class='title'>Adobe</span>
+        <b:include name='collapse' />
+    </div>
+    <div class='list_label list_1'>
+        <ul>
+            <b:loop values='data:labels' var='label'>
+               <b:include cond='data:label.name in ["adobe-2013","adobe-2014","adobe-2015","adobe-2015.5"]' name='child' />
+            </b:loop>
+        </ul>
+    </div>
+</div>
+
+<div class='list_items'>
+    <div class='collapsible list_2'>
+        <span class='title'>Blogger</span>
+        <b:include name='collapse' />
+    </div>
+    <div class='list_label list_2'>
+        <ul>
+            <b:loop values='data:labels' var='label'>
+               <b:include cond='data:label.name in ["blogger-data","blogger-template","blogging-tips","json-feed"]' name='child' />
+            </b:loop>
+        </ul>
+    </div>
+</div>  
+
+<!-- Write more -->
+</b:includable>
+
+</b:widget>
