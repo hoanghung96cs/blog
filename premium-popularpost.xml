@@ -60,27 +60,7 @@
             <b:includable id='emailPostIcon'/>
             <b:includable id='footerBylines'/>
             <b:includable id='headerByline'/>
-            <b:includable id='postContent' var='post'>
-      <div class='post'>
-        <div class='post-content'>
-          <a class='post-image-link' expr:href='data:post.url'>
-            <b:if cond='data:post.featuredImage'>
-              <img class='post-thumb' expr:alt='data:post.title' expr:src='data:post.featuredImage resizeImage 100'/>
-              <b:else/>
-              <img class='post-thumb' expr:alt='data:post.title' src='https://4.bp.blogspot.com/-O3EpVMWcoKw/WxY6-6I4--I/AAAAAAAAB2s/KzC0FqUQtkMdw7VzT6oOR_8vbZO6EJc-ACK4BGAYYCw/w100/nth.png'/>
-            </b:if>
-          </a>
-          <div class='post-info'>
-            <h2 class='post-title'>
-              <a expr:href='data:post.url'><data:post.title/></a>
-            </h2>
-            <div class='post-meta'>
-              <span class='post-date published' expr:datetime='data:post.date.iso8601'><data:post.date/></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </b:includable>
+            <b:includable id='postContent' var='post'/>
             <b:includable id='postLabels'/>
             <b:includable id='sharingButtonContent'/>
             <b:includable id='snippetedPostContent'/>
