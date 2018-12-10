@@ -1,4 +1,6 @@
-﻿<b:widget id='PopularPosts69' locked='false' title='Popular Posts' type='PopularPosts' version='2' visible='true'>
+<!-- Widget v2 -->
+
+<b:widget id='PopularPosts69' locked='false' title='Popular Posts' type='PopularPosts' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='numItemsToShow'>10</b:widget-setting>
               <b:widget-setting name='showThumbnails'>true</b:widget-setting>
@@ -44,7 +46,7 @@
             </div>
 <style type='text/css'>/*<![CDATA[*/
 .PopularPosts .custom-popular{counter-reset:posts-counter}
-.PopularPosts .custom-popular .post{margin:0 0 20px!important;counter-increment:posts-counter;position:relative}
+.PopularPosts .custom-popular .post{overflow:initial;margin:0 0 20px!important;counter-increment:posts-counter;position:relative}
 .PopularPosts .custom-popular .post .post-thumb{width:100%;height:210px}
 .PopularPosts .custom-popular .post .post-thumb img{width:100%;height:100%;-webkit-transition:all 0.3s linear;-o-transition:all 0.3s linear;-moz-transition:all 0.3s linear;transition:all 0.3s linear}
 .PopularPosts .custom-popular .post .post-thumb img:hover{-webkit-filter:grayscale(1);filter:grayscale(1)}
@@ -65,3 +67,76 @@
             <b:includable id='sharingButtonContent'/>
             <b:includable id='snippetedPostContent'/>
           </b:widget>
+
+========================================================================================================================
+
+<b:widget id='PopularPosts69' locked='false' title='Popular Posts' type='PopularPosts' version='1'>
+        <b:widget-settings>
+          <b:widget-setting name='numItemsToShow'>10</b:widget-setting>
+          <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+          <b:widget-setting name='showSnippets'>false</b:widget-setting>
+          <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+        </b:widget-settings>
+        <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'><h2><data:title/></h2></b:if>
+<div class='widget-content custom-popular'>
+                <div class='posts'>
+                    <b:loop index='i' values='data:posts' var='post'>
+                        <b:if cond='data:i == 0'>
+                            <!-- nth-of-type(1) -->
+                            <div class='post has-thumb'>
+                                <div class='post-thumb'>
+                                    <a expr:href='data:post.href' expr:title='data:post.title'>
+                                            <img expr:src='data:post.featuredImage ? (data:post.featuredImage resizeImage 576) : &quot;https://lh3.ggpht.com/-MGQxIm1YHkI/W5PTrITCaxI/AAAAAAAAHfs/nhe1LMQuSMg4DnZ1qbUNCEHp1xPDoYMwgCLcBGAs/s1600/nth.png&quot;'/>
+                                         </a>
+                                </div>
+                                <div class='post-info'>
+                                    <h3 class='post-title'>
+                                        <a expr:href='data:post.href' expr:title='data:post.title'><data:post.title/></a>
+                                    </h3>
+                                    <div class='post-meta'>
+                                       <span class='p-author'/> - <span class='p-date'/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <b:else/>
+
+                            <!-- nth-of-type(n+1) -->
+                            <div class='post'>
+                                <div class='post-info'>
+                                    <h3 class='post-title'>
+                                        <a expr:href='data:post.href' expr:title='data:post.title'><data:post.title/></a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </b:if>
+                    </b:loop>
+                </div>
+            </div>
+<script type='text/javascript'>//<![CDATA[
+$.ajax($(".has-thumb .post-title a").attr("href"), {
+    dataType: "html"
+}).done(function(e) {
+    var _author = $(e).find("#post-author-name").text(); // thay thành id hiển thị tên tác giả trong item post meta của bạn
+    var _time = $(e).find("#post-time").text(); // thay thành id hiển thị ngày đăng trong item post meta của bạn
+    $(".p-author").html(_author);
+    $(".p-date").html(_time);
+}) 
+//]]></script>
+<style type='text/css'>/*<![CDATA[*/
+.PopularPosts .custom-popular{counter-reset:posts-counter}
+.PopularPosts .custom-popular .post{overflow:initial;margin:0 0 20px!important;counter-increment:posts-counter;position:relative}
+.PopularPosts .custom-popular .post .post-thumb{width:100%;height:210px}
+.PopularPosts .custom-popular .post .post-thumb img{width:100%;height:100%;-webkit-transition:all 0.3s linear;-o-transition:all 0.3s linear;-moz-transition:all 0.3s linear;transition:all 0.3s linear}
+.PopularPosts .custom-popular .post .post-thumb img:hover{-webkit-filter:grayscale(1);filter:grayscale(1)}
+.PopularPosts .custom-popular .post .post-info .post-title{line-height:1.4;margin:0;padding-left:30px;font-weight:600;font-size:14px}
+.PopularPosts .custom-popular .post .post-info .post-title a{color:#000;-webkit-transition:all 0.3s linear;-o-transition:all 0.3s linear;-moz-transition:all 0.3s linear;transition:all 0.3s linear}
+.PopularPosts .custom-popular .post .post-info .post-title a:hover{color:#2187e7}
+.PopularPosts .custom-popular .post::before{content:counter(posts-counter);display:inline-block;background:#333;color:#fff;width:22px;height:22px;line-height:22px;text-align:center;font-weight:600;font-size:14px;-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%;z-index:10;position:absolute;left:0;top:5px}
+.PopularPosts .custom-popular .post:nth-of-type(1) .post-info .post-title{margin:12px 0 5px;padding-left:0}
+.PopularPosts .custom-popular .post:nth-of-type(1) .post-info .post-meta{font-size:14px}
+.PopularPosts .custom-popular .post:nth-of-type(1)::before{top:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+/*]]>*/</style>
+</b:includable>
+      </b:widget>
