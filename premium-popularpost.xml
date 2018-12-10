@@ -1,0 +1,87 @@
+﻿<b:widget id='PopularPosts69' locked='false' title='Popular Posts' type='PopularPosts' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='numItemsToShow'>10</b:widget-setting>
+              <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+              <b:widget-setting name='showSnippets'>true</b:widget-setting>
+              <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main' var='this'>
+            <b:include name='widget-title'/>
+            <div class='widget-content custom-popular'>
+                <div class='posts'>
+                    <b:loop index='i' values='data:posts' var='post'>
+                        <b:if cond='data:i == 0'>
+                            <!-- nth-of-type(1) -->
+                            <div class='post'>
+                                <div class='post-thumb'>
+                                    <a expr:href='data:post.url' expr:title='data:post.title'>
+                                            <img expr:src='data:post.featuredImage ? (data:post.featuredImage resizeImage 576) : &quot;https://lh3.ggpht.com/-MGQxIm1YHkI/W5PTrITCaxI/AAAAAAAAHfs/nhe1LMQuSMg4DnZ1qbUNCEHp1xPDoYMwgCLcBGAs/s1600/nth.png&quot;'/>
+                                         </a>
+                                </div>
+                                <div class='post-info'>
+                                    <h3 class='post-title'>
+                                        <a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a>
+                                    </h3>
+                                    <div class='post-meta'>
+                                       <span><data:post.author.name/></span> - <span expr:datetime='data:post.date.iso8601'><data:post.date/></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <b:else/>
+
+                            <!-- nth-of-type(n+1) -->
+                            <div class='post'>
+                                <div class='post-info'>
+                                    <h3 class='post-title'>
+                                        <a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </b:if>
+                    </b:loop>
+                </div>
+            </div>
+<style type='text/css'>/*<![CDATA[*/
+.PopularPosts .custom-popular{counter-reset:posts-counter}
+.PopularPosts .custom-popular .post{margin:0 0 20px!important;counter-increment:posts-counter;position:relative}
+.PopularPosts .custom-popular .post .post-thumb{width:100%;height:210px}
+.PopularPosts .custom-popular .post .post-thumb img{width:100%;height:100%;-webkit-transition:all 0.3s linear;-o-transition:all 0.3s linear;-moz-transition:all 0.3s linear;transition:all 0.3s linear}
+.PopularPosts .custom-popular .post .post-thumb img:hover{-webkit-filter:grayscale(1);filter:grayscale(1)}
+.PopularPosts .custom-popular .post .post-info .post-title{line-height:1.4;margin:0;padding-left:30px;font-weight:600;font-size:14px}
+.PopularPosts .custom-popular .post .post-info .post-title a{color:#000;-webkit-transition:all 0.3s linear;-o-transition:all 0.3s linear;-moz-transition:all 0.3s linear;transition:all 0.3s linear}
+.PopularPosts .custom-popular .post .post-info .post-title a:hover{color:#2187e7}
+.PopularPosts .custom-popular .post::before{content:counter(posts-counter);display:inline-block;background:#333;color:#fff;width:22px;height:22px;line-height:22px;text-align:center;font-weight:600;font-size:14px;-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%;z-index:10;position:absolute;left:0;top:5px}
+.PopularPosts .custom-popular .post:nth-of-type(1) .post-info .post-title{margin:12px 0 5px;padding-left:0}
+.PopularPosts .custom-popular .post:nth-of-type(1) .post-info .post-meta{font-size:14px}
+.PopularPosts .custom-popular .post:nth-of-type(1)::before{top:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+/*]]>*/</style>
+         </b:includable>
+            <b:includable id='emailPostIcon'/>
+            <b:includable id='footerBylines'/>
+            <b:includable id='headerByline'/>
+            <b:includable id='postContent' var='post'>
+      <div class='post'>
+        <div class='post-content'>
+          <a class='post-image-link' expr:href='data:post.url'>
+            <b:if cond='data:post.featuredImage'>
+              <img class='post-thumb' expr:alt='data:post.title' expr:src='data:post.featuredImage resizeImage 100'/>
+              <b:else/>
+              <img class='post-thumb' expr:alt='data:post.title' src='https://4.bp.blogspot.com/-O3EpVMWcoKw/WxY6-6I4--I/AAAAAAAAB2s/KzC0FqUQtkMdw7VzT6oOR_8vbZO6EJc-ACK4BGAYYCw/w100/nth.png'/>
+            </b:if>
+          </a>
+          <div class='post-info'>
+            <h2 class='post-title'>
+              <a expr:href='data:post.url'><data:post.title/></a>
+            </h2>
+            <div class='post-meta'>
+              <span class='post-date published' expr:datetime='data:post.date.iso8601'><data:post.date/></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </b:includable>
+            <b:includable id='postLabels'/>
+            <b:includable id='sharingButtonContent'/>
+            <b:includable id='snippetedPostContent'/>
+          </b:widget>
