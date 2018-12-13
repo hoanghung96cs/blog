@@ -1,0 +1,83 @@
+﻿1. Xác định phần nội dung lặp mỗi bài đăng trang index và dán code sau vào
+
+<b:tag class='post-comment' cond='data:view.isMultipleItems' expr:data-id='data:post.id' name='div'/>
+
+2. Dán trước thẻ </body>
+
+<b:if cond='data:view.isMultipleItems'>
+<script>//<![CDATA[
+var each = (e, l) => {
+  for (let n = document.querySelectorAll(e), o = 0; o < n.length; o++) l(n[o], o)
+}
+
+window.addEventListener("load", () => {
+  each(".post-comment", function(el, i) {
+    let pid = el.getAttribute("data-id");
+    fetch(`/feeds/${pid}/comments/summary?alt=json&max-results=3`)
+      .then(res => res.json())
+      .then(e => {
+        if (e.feed.entry) {
+          e.feed.entry.reverse();
+          let s, o, c, i, l, q, r, p;
+          for (let a = 0; a < e.feed.entry.length; a++) {
+            for (let t = 0; t < e.feed.entry[a].link.length; t++)
+              if ("alternate" == e.feed.entry[a].link[t].rel) {
+                r = e.feed.entry[a].link[t].href;
+                break;
+              }
+            let n = e.feed.entry[a].author[0].gd$image.src;
+            if ("https://img1.blogblog.com/img/b16-rounded.gif" !== n && "https://img1.blogblog.com/img/blank.gif" !== n)
+              s = e.feed.entry[a].author[0].gd$image.src.replace("s512-c", "s35-c");
+            else
+              s = "//lh4.ggpht.com/-ntdKjBQECcg/W1anAMHdApI/AAAAAAAAHAU/33XLL1zWB48qhyaufndHFjWU5VRkFUrHACLcBGAs/s35-c/anonymous.png";
+            if (e.feed.entry[a].author[0].uri) o = e.feed.entry[a].author[0].uri.$t;
+            else o = "javascript:void(0)";
+            c = e.feed.entry[a].author[0].name.$t;
+            l = e.feed.entry[a].summary.$t.replace(/(<([^>]+)>)/gi, "");
+            i = l;
+            if (l.length > 150) {
+              let d = l.substring(0, 150),
+                u = d.lastIndexOf(" ");
+              l = d.substring(0, u) + " ...";
+            }
+            p = e.feed.entry[a].published.$t;
+            q = e.feed.entry[a].published.$t.substring(0,10).replace(/-/g,"/");
+            el.innerHTML += 
+              `<div class="rc-item">` +
+                 `<div class="rc-avatar"><img src="${s}"/></div>` +
+                 `<div class="rc-summary">` +
+                    `<div class="rc-header">` +
+                       `<span class="rc-author"><a href="${o}">${c}</a></span>` +
+                       `<span class="rc-body" title="${i}">${l}</span>` +
+                    `</div>` +
+                    `<div class="rc-meta">` +
+                       `<span class="rc-reply"><a href="${r}">Reply</a></span>` +
+                       `<span class="rc-time timeago" datetime="${p}">${q}</span>` +
+                    `</div>` +
+                 `</div>` +
+              `</div>`;
+          }
+        }
+      })
+      .catch(error => console.error(error))
+  });
+});
+//]]></script>
+
+<style>/*<![CDATA[*/
+.post-comment{padding:0 35px}
+.post-comment .rc-item{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-align:start;-webkit-align-items:flex-start;-moz-box-align:start;-ms-flex-align:start;align-items:flex-start;margin-bottom:15px}
+.post-comment .rc-item .rc-avatar{width:50px;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0}
+.post-comment .rc-item .rc-avatar img{width:35px;height:35px;-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%}
+.post-comment .rc-item .rc-summary{position:relative;background:#f7f7f7;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:10px 15px;width:-webkit-calc(100% - 50px);width:-moz-calc(100% - 50px);width:calc(100% - 50px);display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+.post-comment .rc-item .rc-summary::before{content:"";border-style:solid;border-width:9px 12px;border-color:transparent #f7f7f7 transparent transparent;height:0;width:0;position:absolute;left:-20px;top:10px}
+.post-comment .rc-item .rc-summary .rc-header{margin-bottom:5px}
+.post-comment .rc-item .rc-summary .rc-header .rc-author{display:inline-block;margin-right:5px}
+.post-comment .rc-item .rc-summary .rc-header .rc-author a{color:#333;font-weight:600}
+.post-comment .rc-item .rc-summary .rc-meta{font-size:13px}
+.post-comment .rc-item .rc-summary .rc-meta .rc-reply{display:inline-block;margin-right:8px;padding-right:10px;position:relative}
+.post-comment .rc-item .rc-summary .rc-meta .rc-reply a{color:#22469e;font-weight:400}
+.post-comment .rc-item .rc-summary .rc-meta .rc-reply a:hover{text-decoration:underline}
+.post-comment .rc-item .rc-summary .rc-meta .rc-reply::after{position:absolute;background:#bdbdbd;width:3px;height:3px;top:10px;right:0;content:"";-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%}
+/*]]>*/</style>
+</b:if>
