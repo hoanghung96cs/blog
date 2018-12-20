@@ -40,7 +40,6 @@
     }
 
     eachClass("comment-content", function(el, i) {
-        console.log(el.innerHTML)
         for (var t = 0; t < listIcon.length; t++)
             for (; - 1 != el.innerHTML.indexOf(listIcon[t].icon);)
                 el.innerHTML = el.innerHTML.replace(listIcon[t].icon, "<span class='img-emoji " + listIcon[t].class + "'></span>");
