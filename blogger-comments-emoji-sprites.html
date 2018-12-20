@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blogger Comments with Emoji</title>
+</head>
+
+<body>
+    <h1>Front end show List icon</h1>
+    <div class="comment-rule"></div>
+    <hr>
+    <h2>Comment 1</h2>
+    <div class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco :d :-D :(| :-) ^^ ^.^ ^-^ ;) :] :* :B :~| :~D :> :-> :=> =) :) -.- -_- /no -_* :-( :=( /-o /tired /sl :z :-p :~p :=p :_p :^z ~~ ;-| :x :w :sad =(( :hum :^(( :huhu :haiz /sad /^( :-Q :=Q :Q o_o @.@ :angry /angry |-D :-O :T :-T :ok (Y) (D) :v /clap /hand &lt;3 /VN &lt;-3 &lt;=3 /cup /plane /100 /done /gun /sun laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <h2>Comment 2</h2>
+    <div class="comment-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem fugiat deserunt dolorum tenetur nemo similique perspiciatis laudantium, laboriosam quo incidunt blanditiis voluptates optio provident pariatur numquam fugit aliquid beatae, accusantium voluptatem amet et. Maiores autem doloribus et nisi harum, voluptatem! :d :-D :(| :-) ^^ ^.^ ^-^ ;) :] :* :B :~| :~D :> :-> :=> =) :) -.- -_- /no -_* :-( :=( /-o /tired /sl :z :-p :~p :=p :_p :^z ~~ ;-| :x :w :sad =(( :hum :^(( :huhu :haiz /sad /^( :-Q :=Q :Q o_o @.@ :angry /angry |-D :-O :T :-T :ok (Y) (D) :v /clap /hand &lt;3 /VN &lt;-3 &lt;=3 /cup /plane /100 /done /gun /sun</div>
+    <h2>Comment 3</h2>
+    <div class="comment-content">:v Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem fugiat deserunt dolorum tenetur nemo similique perspiciatis laudantium, laboriosam quo incidunt blanditiis voluptates optio provident pariatur numquam fugit aliquid beatae, accusantium voluptatem amet et. Maiores autem doloribus et nisi harum, voluptatem! :d</div>
+    <script type="text/javascript">
+    // Blogger Comments with Emoji by Hung1001
+    var listIcon=[{icon:":d",class:"img-0"},{icon:":-D",class:"img-32"},{icon:":(|",class:"img-64"},{icon:":-)",class:"img-96"},{icon:"^^",class:"img-128"},{icon:"^.^",class:"img-160"},{icon:"^-^",class:"img-192"},{icon:";)",class:"img-224"},{icon:":]",class:"img-256"},{icon:":*",class:"img-288"},{icon:":B",class:"img-320"},{icon:":~|",class:"img-352"},{icon:":~D",class:"img-384"},{icon:":&gt;",class:"img-416"},{icon:":-&gt;",class:"img-448"},{icon:":=&gt;",class:"img-480"},{icon:"=)",class:"img-512"},{icon:":)",class:"img-544"},{icon:"-.-",class:"img-576"},{icon:"-_-",class:"img-608"},{icon:"/no",class:"img-640"},{icon:"-_*",class:"img-672"},{icon:":-(",class:"img-704"},{icon:":=(",class:"img-736"},{icon:"/-o",class:"img-768"},{icon:"/tired",class:"img-800"},{icon:"/sl",class:"img-832"},{icon:":z",class:"img-864"},{icon:":-p",class:"img-896"},{icon:":~p",class:"img-928"},{icon:":=p",class:"img-960"},{icon:":_p",class:"img-992"},{icon:":^z",class:"img-1024"},{icon:"~~",class:"img-1056"},{icon:";-|",class:"img-1088"},{icon:":x",class:"img-1120"},{icon:":w",class:"img-1152"},{icon:":sad",class:"img-1184"},{icon:"=((",class:"img-1216"},{icon:":hum",class:"img-1248"},{icon:":^((",class:"img-1280"},{icon:":huhu",class:"img-1312"},{icon:":haiz",class:"img-1344"},{icon:"/sad",class:"img-1376"},{icon:"/^(",class:"img-1408"},{icon:":-Q",class:"img-1440"},{icon:":=Q",class:"img-1472"},{icon:":Q",class:"img-1504"},{icon:"o_o",class:"img-1536"},{icon:"@.@",class:"img-1568"},{icon:":angry",class:"img-1600"},{icon:"/angry",class:"img-1632"},{icon:"|-D",class:"img-1664"},{icon:":-O",class:"img-1696"},{icon:":T",class:"img-1728"},{icon:":-T",class:"img-1760"},{icon:":ok",class:"img-1792"},{icon:"(Y)",class:"img-1824"},{icon:"(D)",class:"img-1856"},{icon:":v",class:"img-1888"},{icon:"/clap",class:"img-1920"},{icon:"/hand",class:"img-1952"},{icon:"&lt;3",class:"img-1984"},{icon:"/VN",class:"img-2016"},{icon:"&lt;-3",class:"img-2048"},{icon:"&lt;=3",class:"img-2080"},{icon:"/cup",class:"img-2112"},{icon:"/plane",class:"img-2144"},{icon:"/100",class:"img-2176"},{icon:"/done",class:"img-2208"},{icon:"/gun",class:"img-2240"},{icon:"/sun",class:"img-2272"}];
+
+    // Front-End
+    var cmt = document.getElementsByClassName("comment-rule")[0];
+
+    for (var i = 0; i < listIcon.length; i++) {
+        cmt.innerHTML += "<div class='item'><span class='img-emoji " + listIcon[i].class + "'></span><span class='short-code'>" + listIcon[i].icon + "</span></div>";
+    };
+
+    // Back-end
+    function eachClass(selector, fn) {
+        var elements = document.getElementsByClassName(selector);
+        for (var i = 0; i < elements.length; i++)
+            fn(elements[i], i);
+    }
+
+    eachClass("comment-content", function(el, i) {
+        console.log(el.innerHTML)
+        for (var t = 0; t < listIcon.length; t++)
+            for (; - 1 != el.innerHTML.indexOf(listIcon[t].icon);)
+                el.innerHTML = el.innerHTML.replace(listIcon[t].icon, "<span class='img-emoji " + listIcon[t].class + "'></span>");
+    });
+    </script>
+    <style type="text/css">
+    .img-emoji{display:inline-block;width:32px;height:32px;background-image:url(https://i.imgur.com/3iZqQSt.png);background-repeat:no-repeat;background-size:32px}
+    .comment-rule .item{text-align:center;display:inline-block;margin:5px 10px 5px 0}
+    .comment-rule .img-emoji{display:block;margin:0 0 5px}
+    .img-0{background-position:0 0}
+    .img-32{background-position:0 -32px}
+    .img-64{background-position:0 -64px}
+    .img-96{background-position:0 -96px}
+    .img-128{background-position:0 -128px}
+    .img-160{background-position:0 -160px}
+    .img-192{background-position:0 -192px}
+    .img-224{background-position:0 -224px}
+    .img-256{background-position:0 -256px}
+    .img-288{background-position:0 -288px}
+    .img-320{background-position:0 -320px}
+    .img-352{background-position:0 -352px}
+    .img-384{background-position:0 -384px}
+    .img-416{background-position:0 -416px}
+    .img-448{background-position:0 -448px}
+    .img-480{background-position:0 -480px}
+    .img-512{background-position:0 -512px}
+    .img-544{background-position:0 -544px}
+    .img-576{background-position:0 -576px}
+    .img-608{background-position:0 -608px}
+    .img-640{background-position:0 -640px}
+    .img-672{background-position:0 -672px}
+    .img-704{background-position:0 -704px}
+    .img-736{background-position:0 -736px}
+    .img-768{background-position:0 -768px}
+    .img-800{background-position:0 -800px}
+    .img-832{background-position:0 -832px}
+    .img-864{background-position:0 -864px}
+    .img-896{background-position:0 -896px}
+    .img-928{background-position:0 -928px}
+    .img-960{background-position:0 -960px}
+    .img-992{background-position:0 -992px}
+    .img-1024{background-position:0 -1024px}
+    .img-1056{background-position:0 -1056px}
+    .img-1088{background-position:0 -1088px}
+    .img-1120{background-position:0 -1120px}
+    .img-1152{background-position:0 -1152px}
+    .img-1184{background-position:0 -1184px}
+    .img-1216{background-position:0 -1216px}
+    .img-1248{background-position:0 -1248px}
+    .img-1280{background-position:0 -1280px}
+    .img-1312{background-position:0 -1312px}
+    .img-1344{background-position:0 -1344px}
+    .img-1376{background-position:0 -1376px}
+    .img-1408{background-position:0 -1408px}
+    .img-1440{background-position:0 -1440px}
+    .img-1472{background-position:0 -1472px}
+    .img-1504{background-position:0 -1504px}
+    .img-1536{background-position:0 -1536px}
+    .img-1568{background-position:0 -1568px}
+    .img-1600{background-position:0 -1600px}
+    .img-1632{background-position:0 -1632px}
+    .img-1664{background-position:0 -1664px}
+    .img-1696{background-position:0 -1696px}
+    .img-1728{background-position:0 -1728px}
+    .img-1760{background-position:0 -1760px}
+    .img-1792{background-position:0 -1792px}
+    .img-1824{background-position:0 -1824px}
+    .img-1856{background-position:0 -1856px}
+    .img-1888{background-position:0 -1888px}
+    .img-1920{background-position:0 -1920px}
+    .img-1952{background-position:0 -1952px}
+    .img-1984{background-position:0 -1984px}
+    .img-2016{background-position:0 -2016px}
+    .img-2048{background-position:0 -2048px}
+    .img-2080{background-position:0 -2080px}
+    .img-2112{background-position:0 -2112px}
+    .img-2144{background-position:0 -2144px}
+    .img-2176{background-position:0 -2176px}
+    .img-2208{background-position:0 -2208px}
+    .img-2240{background-position:0 -2240px}
+    .img-2272{background-position:0 -2272px}
+    </style>
+</body>
+
+</html>
