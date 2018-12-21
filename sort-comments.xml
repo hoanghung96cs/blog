@@ -1,0 +1,53 @@
+﻿                <div class='comments-content'>
+                  <b:if cond='data:post.embedCommentForm'>
+                    <b:include data='post' name='threadedCommentJs'/>
+                  </b:if>
+
+<!-- HTML Markup go here -->
+<div class='sort-comment'>
+    <span class='sort-title'>Sort by</span>
+    <div class='sort-sel'>
+        <select class='sort-option'>
+          <option selected='selected' value='newest'>Newest</option>
+          <option value='oldest'>Oldest</option>
+        </select>
+    </div>
+</div>
+<!-- End HTML Markup -->
+
+                  <div id='comment-holder'>
+                    <data:post.commentHtml/>
+                  </div>
+                </div>
+
+<!-- Add style and script -->
+<style type='text/css'>/*<![CDATA[*/
+.sort-comment{text-align:right}
+.sort-comment .sort-title{font-size:14px;display:inline-block;margin-right:3px}
+.sort-comment .sort-sel{display:inline-block;position:relative}
+.sort-comment .sort-sel::after,.sort-comment .sort-sel::before{position:absolute;content:"";right:7px;border-style:solid;border-width:4px;width:0;height:0}
+.sort-comment .sort-sel::after{top:2px;border-color:transparent transparent #333}
+.sort-comment .sort-sel::before{bottom:2px;border-color:#333 transparent transparent}
+.sort-comment .sort-sel .sort-option{cursor:pointer;background:#fff;border:1px solid #aaa;padding:2px 20px 2px 7px;color:#656565;font-size:14px;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;white-space:nowrap;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-moz-appearance:window;-webkit-appearance:none;outline:0}
+/*]]>*/</style>
+
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'/> <!-- Bỏ qua nếu đã tích hợp jQuery -->
+
+<script type='text/javascript'>//<![CDATA[
+// by Hung1001
+$.fn.reverseChildren = function() {
+    return this.each(function() {
+        var $this = $(this);
+        $this.children().each(function() {
+            $this.prepend(this);
+        });
+    });
+};
+
+$(".comments-content ol").reverseChildren();
+
+$(".sort-option").on("change", function() {
+  $(".comments-content ol").reverseChildren();
+})
+//]]>
+</script>
