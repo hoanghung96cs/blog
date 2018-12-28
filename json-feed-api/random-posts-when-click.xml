@@ -4,10 +4,13 @@
   background: #fff;
   border: 1px solid #eee;
   padding: 6px 12px 7px;
-  border-radius: 100px;
+  -webkit-border-radius: 100px;
+     -moz-border-radius: 100px;
+          border-radius: 100px;
   cursor: pointer;
   -webkit-transition: background 0.3s;
   -o-transition: background 0.3s;
+  -moz-transition: background 0.3s;
   transition: background 0.3s;
 }
 .btn-random:hover {
@@ -17,9 +20,12 @@
   margin: 20px 0 0;
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+      -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 .random-posts .item {
   width: 32%;
@@ -36,22 +42,30 @@
 .random-posts .item .thumb img {
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 5px;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
   width: 100%;
   height: 100%;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+       box-sizing: border-box;
   border: 1px solid #f6f6f6;
 }
 .random-posts .item .thumb img:hover {
   -webkit-transition: -webkit-transform 0.3s ease;
   transition: -webkit-transform 0.3s ease;
   -o-transition: transform 0.3s ease;
+  -o-transition: -o-transform 0.3s ease;
+  -moz-transition: transform 0.3s ease, -moz-transform 0.3s ease;
   transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease, -moz-transform 0.3s ease, -o-transform 0.3s ease;
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
   -webkit-transform: scale(1.1) rotate(-1.3deg);
       -ms-transform: scale(1.1) rotate(-1.3deg);
-          transform: scale(1.1) rotate(-1.3deg);
+          -moz-transform: scale(1.1) rotate(-1.3deg);
+            -o-transform: scale(1.1) rotate(-1.3deg);
+       transform: scale(1.1) rotate(-1.3deg);
 }
 .random-posts .item .content {
   margin-top: 10px;
