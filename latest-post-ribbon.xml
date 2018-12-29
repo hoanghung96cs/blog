@@ -1,0 +1,90 @@
+﻿#Code under Blog1 Widget
+
+1. Markup
+
+1.1. Add index='i' in loop
+
+<b:includable id='main' var='this'>
+...
+    <b:loop index='i' values='data:posts' var='post'>
+         ...
+    </b:loop>
+...    
+</b:includable>
+
+1.2 Add code filter
+
+<div class='posts'>
+
+      <!-- Start filter -->
+          <b:if cond='data:i == 0 and data:view.isHomepage'>
+              <b:class name='latest-post'/>
+              <div class='ribbon-pre'><span>New</span></div>
+       	   </b:if>
+      <!-- End filter -->
+....
+</div>
+
+2. CSS
+
+.posts.latest-post {
+    overflow: initial;
+    position: relative;
+}
+
+.ribbon-pre {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+}
+
+.ribbon-pre span::after,
+.ribbon-pre span::before {
+    content: "";
+    top: 100%;
+    z-index: -1;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid rgba(215, 15, 15, 0.85);
+    position: absolute;
+}
+
+.ribbon-pre span::before {
+    left: 0;
+    border-left: 3px solid rgba(215, 15, 15, 0.85);
+    border-right: 3px solid transparent;
+}
+
+.ribbon-pre span::after {
+    right: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px rgba(215, 15, 15, 0.85);
+}
+
+.ribbon-pre span {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    line-height: 18px;
+    letter-spacing: 0.02rem;
+    -moz-transform: rotate(-45deg);
+     -ms-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+         transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    width: 95px;
+    display: block;
+    background: rgba(215, 15, 15, 0.85);
+    -webkit-box-shadow: 0 3px 10px -5px #000000;
+       -moz-box-shadow: 0 3px 10px -5px #000000;
+            box-shadow: 0 3px 10px -5px #000000;
+    position: absolute;
+    top: 19px;
+    left: -21px;
+}
