@@ -124,7 +124,7 @@ document.getElementsByClassName("btn-random")[0].addEventListener("click", e => 
             } else {
               thumb = "https://3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s1600-r/nth.png"
             }
-            document.getElementsByClassName("random-posts")[0].innerHTML += `<div class="item"><div class="thumb"><a href="${href}"><img src="${thumb}"/></a></div><div class="content"><a href="${href}">${title}></div></div>`;
+            document.getElementsByClassName("random-posts")[0].innerHTML += `<div class="item"><div class="thumb"><a href="${href}"><img src="${thumb}"/></a></div><div class="content"><a href="${href}">${title}</a></div></div>`;
           }
         }).catch(e => console.error(e))
       }
