@@ -18,7 +18,7 @@
 
       <!-- Start filter -->
           <b:if cond='data:i == 0 and data:view.isHomepage'>
-              <b:class name='latest-post'/>
+              <b:class name='lastest-post'/>
               <div class='ribbon-pre'><span>New</span></div>
        	   </b:if>
       <!-- End filter -->
@@ -27,7 +27,7 @@
 
 2. CSS
 
-.posts.latest-post {
+.posts.lastest-post {
     overflow: initial;
     position: relative;
 }
