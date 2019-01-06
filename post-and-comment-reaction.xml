@@ -1,0 +1,128 @@
+﻿1. Include jQuery and FontAwesome
+
+<head>
+...
+
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js' type='text/javascript'/>
+<link href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'/>
+
+...
+</head>
+
+2. Markup
+
+<!-- for Post Reaction -->
+<b:if cond='data:view.isPost'>
+<button class='like-button' expr:data-post-id='data:blog.blogId + &quot;_&quot; + data:post.id' type='button'><i class='fa fa-thumbs-o-up'/> Like <span class='total'/></button>
+<button class='love-button' expr:data-post-id='data:blog.blogId + &quot;_&quot; + data:post.id' type='button'><i class='fa fa-heart'/> Love <span class='total'/></button>
+<button class='thanks-button' expr:data-post-id='data:blog.blogId + &quot;_&quot; + data:post.id' type='button'><i class='fa fa-gift'/> Thanks <span class='total'/></button>
+</b:if>
+
+<!-- for Comment Reaction -->
+<div class='comments-content' expr:data-post-comment='data:post.id'>
+...
+</div>
+
+3. CSS
+
+<style>/*<![CDATA[*/
+button[data-post-id]{display:inline-block;padding:4px 10px;margin-bottom:0;margin-right:3px;font-size:14px;font-weight:normal;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;color:#000;background-color:#fff;border-color:#ddd;outline:0}
+.like-button.like{color:#2187e7}
+.love-button.love{color:#ec516c}
+.thanks-button.thanks{color:#8a07a9}
+.svg-18{display:inline-block;width:18px;height:18px;fill:#888}
+.comment-reaction .comment-like,.comment-reaction .comment-dislike{cursor:pointer;margin-right:8px}
+.comment-reaction .comment-like .total,.comment-reaction .comment-dislike .total{font-size:15px;color:#888}
+.comment-reaction .comment-like.like-cmt .total{color:#2187e7}
+.comment-reaction .comment-like.like-cmt svg{fill:#2187e7}
+.comment-reaction .comment-dislike.dislike-cmt .total{color:#2187e7}
+.comment-reaction .comment-dislike.dislike-cmt svg{fill:#2187e7}
+.comment-reaction svg{position:relative;top:3px;margin-right:3px}
+/*]]>*/
+</style>
+
+4. JS
+
+<body>
+...
+
+<b:if cond='data:view.isPost'>
+<script type='text/javascript'>//<![CDATA[
+$.getScript("https://www.gstatic.com/firebasejs/5.7.2/firebase.js").done(function() {
+  // Post reactions with real time counter by Hung1001
+  function t(t, e) {
+    var a, s = $(t).eq(0),
+      l = s.attr("data-post-id");
+    if (null !== localStorage.getItem(e)) {
+      var o = JSON.parse(localStorage[e]);
+      for (i = 0; i < o.length; i++) o[i] === l && s.addClass(e)
+    }
+    firebase.database().ref(e + "/" + l + "/total").on("value", function(t) {
+      a = t.val() || 0, s.find(".total").html(a)
+    }), s.on("click", function() {
+      if ($(this).toggleClass(e), $(this).hasClass(e)) {
+        if (null === localStorage.getItem(e)) localStorage.setItem(e, JSON.stringify([l]));
+        else {
+          var t = JSON.parse(localStorage[e]);
+          t.filter(function(t) {
+            return t == l
+          }).length || (t.push(l), localStorage.setItem(e, JSON.stringify(t)))
+        }
+        a++
+      } else {
+        for (var s = JSON.parse(localStorage[e]), o = 0; o < s.length; o++) s[o] === l && s.splice(o, 1);
+        localStorage.setItem(e, JSON.stringify(s)), a--
+      }
+      firebase.database().ref(e + "/" + l + "/total").set(a)
+    })
+  }
+  firebase.initializeApp({
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
+  }); /* Replace */
+
+  t(".like-button", "like"), t(".love-button", "love"), t(".thanks-button", "thanks"); // start 3 reactions
+  
+  // Comments reactions with real time counter by Hung1001
+  $(".comments-content .comment .comment-block").each(function() {
+    var t = $(this),
+      e = $(".comments-content").attr("data-post-comment");
+
+    function a(e, a) {
+      var s, l = t.find(e),
+        o = l.attr("data-comment-id");
+      if (null !== localStorage.getItem(a)) {
+        var c = JSON.parse(localStorage[a]);
+        for (i = 0; i < c.length; i++) c[i] === o && l.addClass(a)
+      }
+      firebase.database().ref(a + "/" + o + "/total").on("value", function(t) {
+        s = t.val() || 0, l.find(".total").html(s)
+      }), l.on("click", function() {
+        if ($(this).toggleClass(a), $(this).hasClass(a)) {
+          if (null === localStorage.getItem(a)) localStorage.setItem(a, JSON.stringify([o]));
+          else {
+            var t = JSON.parse(localStorage[a]);
+            t.filter(function(t) {
+              return t == o
+            }).length || (t.push(o), localStorage.setItem(a, JSON.stringify(t)))
+          }
+          s++
+        } else {
+          for (var e = JSON.parse(localStorage[a]), l = 0; l < e.length; l++) e[l] === o && e.splice(l, 1);
+          localStorage.setItem(a, JSON.stringify(e)), s--
+        }
+        firebase.database().ref(a + "/" + o + "/total").set(s)
+      })
+    }
+    t.append(`<div class="comment-reaction"><a class="comment-like" data-comment-id="${e}-${t.parents("li").attr("id")}"><svg class="svg svg-18" focusable="false" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g class="style-scope"><path class="style-scope yt-icon" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"></path></g></svg><span class="total"></span></a><a class="comment-dislike" data-comment-id="${e}-${t.parents("li").attr("id")}"><svg class="svg svg-18" focusable="false" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g class="style-scope"><path class="style-scope yt-icon" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"></path></g></svg><span class="total"></span></a></div>`);
+    a(".comment-like", "like-cmt"), a(".comment-dislike", "dislike-cmt") // start 2 reactions
+  })
+});
+//]]>
+</script>
+</b:if>
+</body>
