@@ -79,12 +79,12 @@ $.getScript("https://www.gstatic.com/firebasejs/5.7.2/firebase.js").done(functio
     })
   }
   firebase.initializeApp({
-    apiKey: "AIzaSyCCLD_YdjHbuyKFXt8awfnkebJlE2kAqTo",
-    authDomain: "hung1001-blog.firebaseapp.com",
-    databaseURL: "https://hung1001-blog.firebaseio.com",
-    projectId: "hung1001-blog",
-    storageBucket: "hung1001-blog.appspot.com",
-    messagingSenderId: "761494165584"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
   }); /* Replace */
 
   $(".post-reaction").each(function() {
