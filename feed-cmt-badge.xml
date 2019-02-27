@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    #rc .item {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    #rc .item .avatar {
+        max-width: 50px;
+        flex-shrink: 0;
+        margin-right: 8px;
+    }
+
+    #rc .item .avatar img {
+        border-radius: 100%;
+        height: 45px;
+        width: 45px;
+    }
+
+    #rc .item .content .author {
+        color: #000;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    #rc .item .date {
+        margin-top: 5px;
+    }
+
+    .blog-admin .badge,
+    .user .badge {
+        background-image: url(https://lh3.ggpht.com/-TikNXwvlck8/XEht8ipLQoI/AAAAAAAAIzg/g50niJGKqnUM3Ehb6yeQal7gtMRBeAkjQCLcBGAs/h0/badge-24.png);
+        background-size: 12px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+    }
+
+    .blog-admin .badge {
+        background-position: 0 0;
+    }
+
+    .user .badge {
+       background-position: 0 -48px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="rc"></div>
+    <script type='text/javascript'>
+    let domain = "https://www.hung1001.com";
+    let listAdmin = ["https://www.blogger.com/profile/05447761258331523994", "https://www.blogger.com/profile/02684441355924921441"];
+    fetch(`https://cors-anywhere.herokuapp.com/${domain}/feeds/comments/summary?alt=json&max-results=10`)
+        .then(response => response.json())
+        .then(json => {
+            let url, avatar, uri, content, user, date;
+            for (var i = 0; i < json.feed.entry.length; i++) {
+                for (var j = 0; j < json.feed.entry[i].link.length; j++) {
+                    if (json.feed.entry[i].link[j].rel == 'alternate') {
+                        url = json.feed.entry[i].link[j].href;
+                        break;
+                    };
+                }
+                avatar = json.feed.entry[i].author[0].gd$image.src.replace(/\/s[0-9]+-?[A-Za-z]?\//i, "/s90-c/");
+                uri = json.feed.entry[i].author[0].uri.$t
+                user = json.feed.entry[i].author[0].name.$t;
+                content = json.feed.entry[i].summary.$t.replace(/(<([^>]+)>)/gi, "");
+                date = json.feed.entry[i].published.$t.substr(0, 10);
+                document.getElementById("rc").innerHTML +=
+                    `	<div class="item">` +
+                    `		<div class="avatar"><img src="${avatar}"></div>` +
+                    `		<div class="content">` +
+                    `			<div class="main">` +
+                    `				<a class="author ${listAdmin.includes(uri)?"blog-admin":"user"}" href="${uri}">` +
+                    `					<span class="">${user}</span> <span class="badge"></span>` +
+                    `				</a> ${content}` +
+                    `			</div>` +
+                    `			<div class="date">` +
+                    `				 ${date} ` +
+                    `			</div>` +
+                    `		</div>` +
+                    `	</div>`;
+            }
+        })
+        .catch(error => console.error(error))
+    </script>
+</body>
+
+</html>
